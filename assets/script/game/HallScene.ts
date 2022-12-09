@@ -15,6 +15,12 @@ export default class NewClass extends cc.Component {
     @property(cc.Label)
     label: cc.Label = null;
 
+    @property(cc.Node)
+    chatNode: cc.Node = null;
+
+    @property(cc.Node)
+    chatBtn: cc.Node = null;
+
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
@@ -23,7 +29,12 @@ export default class NewClass extends cc.Component {
         if (PlayerData.PlayerInfo) {
             this.label.string = PlayerData.PlayerInfo.Name
         }
+        this.chatBtn.on(cc.Node.EventType.TOUCH_END, this.OpenChatPanel, this)
     }
 
     // update (dt) {}
+
+    OpenChatPanel() {
+        this.chatNode.active = true
+    }
 }

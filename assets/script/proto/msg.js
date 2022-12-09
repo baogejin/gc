@@ -34,6 +34,9 @@ $root.myproto = (function () {
      * @property {number} Msg_LogoutREQ=9 Msg_LogoutREQ value
      * @property {number} Msg_LogoutACK=10 Msg_LogoutACK value
      * @property {number} Msg_KickPUSH=11 Msg_KickPUSH value
+     * @property {number} Msg_ChatREQ=12 Msg_ChatREQ value
+     * @property {number} Msg_ChatACK=13 Msg_ChatACK value
+     * @property {number} Msg_ChatPUSH=14 Msg_ChatPUSH value
      */
     myproto.MsgId = (function () {
         var valuesById = {}, values = Object.create(valuesById);
@@ -49,6 +52,9 @@ $root.myproto = (function () {
         values[valuesById[9] = "Msg_LogoutREQ"] = 9;
         values[valuesById[10] = "Msg_LogoutACK"] = 10;
         values[valuesById[11] = "Msg_KickPUSH"] = 11;
+        values[valuesById[12] = "Msg_ChatREQ"] = 12;
+        values[valuesById[13] = "Msg_ChatACK"] = 13;
+        values[valuesById[14] = "Msg_ChatPUSH"] = 14;
         return values;
     })();
 
@@ -71,6 +77,7 @@ $root.myproto = (function () {
      * @property {number} RoleNameIllegal=111 RoleNameIllegal value
      * @property {number} CreateRoleFaild=112 CreateRoleFaild value
      * @property {number} EnterGameFailed=113 EnterGameFailed value
+     * @property {number} PlayerNotFound=114 PlayerNotFound value
      */
     myproto.ResultCode = (function () {
         var valuesById = {}, values = Object.create(valuesById);
@@ -89,6 +96,7 @@ $root.myproto = (function () {
         values[valuesById[111] = "RoleNameIllegal"] = 111;
         values[valuesById[112] = "CreateRoleFaild"] = 112;
         values[valuesById[113] = "EnterGameFailed"] = 113;
+        values[valuesById[114] = "PlayerNotFound"] = 114;
         return values;
     })();
 
@@ -1443,6 +1451,363 @@ $root.myproto = (function () {
         };
 
         return KickPUSH;
+    })();
+
+    myproto.ChatREQ = (function () {
+
+        /**
+         * Properties of a ChatREQ.
+         * @memberof myproto
+         * @interface IChatREQ
+         * @property {string|null} [Msg] ChatREQ Msg
+         */
+
+        /**
+         * Constructs a new ChatREQ.
+         * @memberof myproto
+         * @classdesc Represents a ChatREQ.
+         * @implements IChatREQ
+         * @constructor
+         * @param {myproto.IChatREQ=} [p] Properties to set
+         */
+        function ChatREQ(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * ChatREQ Msg.
+         * @member {string} Msg
+         * @memberof myproto.ChatREQ
+         * @instance
+         */
+        ChatREQ.prototype.Msg = "";
+
+        /**
+         * Creates a new ChatREQ instance using the specified properties.
+         * @function create
+         * @memberof myproto.ChatREQ
+         * @static
+         * @param {myproto.IChatREQ=} [properties] Properties to set
+         * @returns {myproto.ChatREQ} ChatREQ instance
+         */
+        ChatREQ.create = function create(properties) {
+            return new ChatREQ(properties);
+        };
+
+        /**
+         * Encodes the specified ChatREQ message. Does not implicitly {@link myproto.ChatREQ.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.ChatREQ
+         * @static
+         * @param {myproto.IChatREQ} m ChatREQ message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ChatREQ.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Msg != null && Object.hasOwnProperty.call(m, "Msg"))
+                w.uint32(10).string(m.Msg);
+            return w;
+        };
+
+        /**
+         * Decodes a ChatREQ message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.ChatREQ
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.ChatREQ} ChatREQ
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ChatREQ.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.ChatREQ();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Msg = r.string();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for ChatREQ
+         * @function getTypeUrl
+         * @memberof myproto.ChatREQ
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ChatREQ.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.ChatREQ";
+        };
+
+        return ChatREQ;
+    })();
+
+    myproto.ChatACK = (function () {
+
+        /**
+         * Properties of a ChatACK.
+         * @memberof myproto
+         * @interface IChatACK
+         * @property {myproto.ResultCode|null} [Ret] ChatACK Ret
+         */
+
+        /**
+         * Constructs a new ChatACK.
+         * @memberof myproto
+         * @classdesc Represents a ChatACK.
+         * @implements IChatACK
+         * @constructor
+         * @param {myproto.IChatACK=} [p] Properties to set
+         */
+        function ChatACK(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * ChatACK Ret.
+         * @member {myproto.ResultCode} Ret
+         * @memberof myproto.ChatACK
+         * @instance
+         */
+        ChatACK.prototype.Ret = 0;
+
+        /**
+         * Creates a new ChatACK instance using the specified properties.
+         * @function create
+         * @memberof myproto.ChatACK
+         * @static
+         * @param {myproto.IChatACK=} [properties] Properties to set
+         * @returns {myproto.ChatACK} ChatACK instance
+         */
+        ChatACK.create = function create(properties) {
+            return new ChatACK(properties);
+        };
+
+        /**
+         * Encodes the specified ChatACK message. Does not implicitly {@link myproto.ChatACK.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.ChatACK
+         * @static
+         * @param {myproto.IChatACK} m ChatACK message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ChatACK.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Ret != null && Object.hasOwnProperty.call(m, "Ret"))
+                w.uint32(8).int32(m.Ret);
+            return w;
+        };
+
+        /**
+         * Decodes a ChatACK message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.ChatACK
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.ChatACK} ChatACK
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ChatACK.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.ChatACK();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Ret = r.int32();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for ChatACK
+         * @function getTypeUrl
+         * @memberof myproto.ChatACK
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ChatACK.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.ChatACK";
+        };
+
+        return ChatACK;
+    })();
+
+    myproto.ChatPUSH = (function () {
+
+        /**
+         * Properties of a ChatPUSH.
+         * @memberof myproto
+         * @interface IChatPUSH
+         * @property {number|Long|null} [Uid] ChatPUSH Uid
+         * @property {string|null} [Name] ChatPUSH Name
+         * @property {string|null} [Msg] ChatPUSH Msg
+         */
+
+        /**
+         * Constructs a new ChatPUSH.
+         * @memberof myproto
+         * @classdesc Represents a ChatPUSH.
+         * @implements IChatPUSH
+         * @constructor
+         * @param {myproto.IChatPUSH=} [p] Properties to set
+         */
+        function ChatPUSH(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * ChatPUSH Uid.
+         * @member {number|Long} Uid
+         * @memberof myproto.ChatPUSH
+         * @instance
+         */
+        ChatPUSH.prototype.Uid = $util.Long ? $util.Long.fromBits(0, 0, true) : 0;
+
+        /**
+         * ChatPUSH Name.
+         * @member {string} Name
+         * @memberof myproto.ChatPUSH
+         * @instance
+         */
+        ChatPUSH.prototype.Name = "";
+
+        /**
+         * ChatPUSH Msg.
+         * @member {string} Msg
+         * @memberof myproto.ChatPUSH
+         * @instance
+         */
+        ChatPUSH.prototype.Msg = "";
+
+        /**
+         * Creates a new ChatPUSH instance using the specified properties.
+         * @function create
+         * @memberof myproto.ChatPUSH
+         * @static
+         * @param {myproto.IChatPUSH=} [properties] Properties to set
+         * @returns {myproto.ChatPUSH} ChatPUSH instance
+         */
+        ChatPUSH.create = function create(properties) {
+            return new ChatPUSH(properties);
+        };
+
+        /**
+         * Encodes the specified ChatPUSH message. Does not implicitly {@link myproto.ChatPUSH.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.ChatPUSH
+         * @static
+         * @param {myproto.IChatPUSH} m ChatPUSH message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ChatPUSH.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Uid != null && Object.hasOwnProperty.call(m, "Uid"))
+                w.uint32(8).uint64(m.Uid);
+            if (m.Name != null && Object.hasOwnProperty.call(m, "Name"))
+                w.uint32(18).string(m.Name);
+            if (m.Msg != null && Object.hasOwnProperty.call(m, "Msg"))
+                w.uint32(26).string(m.Msg);
+            return w;
+        };
+
+        /**
+         * Decodes a ChatPUSH message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.ChatPUSH
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.ChatPUSH} ChatPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ChatPUSH.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.ChatPUSH();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Uid = r.uint64();
+                        break;
+                    }
+                    case 2: {
+                        m.Name = r.string();
+                        break;
+                    }
+                    case 3: {
+                        m.Msg = r.string();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for ChatPUSH
+         * @function getTypeUrl
+         * @memberof myproto.ChatPUSH
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ChatPUSH.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.ChatPUSH";
+        };
+
+        return ChatPUSH;
     })();
 
     return myproto;

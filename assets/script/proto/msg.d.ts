@@ -16,7 +16,10 @@ export namespace myproto {
         Msg_EnterGameACK = 8,
         Msg_LogoutREQ = 9,
         Msg_LogoutACK = 10,
-        Msg_KickPUSH = 11
+        Msg_KickPUSH = 11,
+        Msg_ChatREQ = 12,
+        Msg_ChatACK = 13,
+        Msg_ChatPUSH = 14
     }
 
     /** ResultCode enum. */
@@ -35,7 +38,8 @@ export namespace myproto {
         NeedLogin = 110,
         RoleNameIllegal = 111,
         CreateRoleFaild = 112,
-        EnterGameFailed = 113
+        EnterGameFailed = 113,
+        PlayerNotFound = 114
     }
 
     /** Properties of a RegisterREQ. */
@@ -674,6 +678,174 @@ export namespace myproto {
 
         /**
          * Gets the default type url for KickPUSH
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a ChatREQ. */
+    interface IChatREQ {
+
+        /** ChatREQ Msg */
+        Msg?: (string|null);
+    }
+
+    /** Represents a ChatREQ. */
+    class ChatREQ implements IChatREQ {
+
+        /**
+         * Constructs a new ChatREQ.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IChatREQ);
+
+        /** ChatREQ Msg. */
+        public Msg: string;
+
+        /**
+         * Creates a new ChatREQ instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChatREQ instance
+         */
+        public static create(properties?: myproto.IChatREQ): myproto.ChatREQ;
+
+        /**
+         * Encodes the specified ChatREQ message. Does not implicitly {@link myproto.ChatREQ.verify|verify} messages.
+         * @param m ChatREQ message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IChatREQ, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ChatREQ message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns ChatREQ
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.ChatREQ;
+
+        /**
+         * Gets the default type url for ChatREQ
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a ChatACK. */
+    interface IChatACK {
+
+        /** ChatACK Ret */
+        Ret?: (myproto.ResultCode|null);
+    }
+
+    /** Represents a ChatACK. */
+    class ChatACK implements IChatACK {
+
+        /**
+         * Constructs a new ChatACK.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IChatACK);
+
+        /** ChatACK Ret. */
+        public Ret: myproto.ResultCode;
+
+        /**
+         * Creates a new ChatACK instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChatACK instance
+         */
+        public static create(properties?: myproto.IChatACK): myproto.ChatACK;
+
+        /**
+         * Encodes the specified ChatACK message. Does not implicitly {@link myproto.ChatACK.verify|verify} messages.
+         * @param m ChatACK message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IChatACK, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ChatACK message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns ChatACK
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.ChatACK;
+
+        /**
+         * Gets the default type url for ChatACK
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a ChatPUSH. */
+    interface IChatPUSH {
+
+        /** ChatPUSH Uid */
+        Uid?: (number|Long|null);
+
+        /** ChatPUSH Name */
+        Name?: (string|null);
+
+        /** ChatPUSH Msg */
+        Msg?: (string|null);
+    }
+
+    /** Represents a ChatPUSH. */
+    class ChatPUSH implements IChatPUSH {
+
+        /**
+         * Constructs a new ChatPUSH.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IChatPUSH);
+
+        /** ChatPUSH Uid. */
+        public Uid: (number|Long);
+
+        /** ChatPUSH Name. */
+        public Name: string;
+
+        /** ChatPUSH Msg. */
+        public Msg: string;
+
+        /**
+         * Creates a new ChatPUSH instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChatPUSH instance
+         */
+        public static create(properties?: myproto.IChatPUSH): myproto.ChatPUSH;
+
+        /**
+         * Encodes the specified ChatPUSH message. Does not implicitly {@link myproto.ChatPUSH.verify|verify} messages.
+         * @param m ChatPUSH message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IChatPUSH, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ChatPUSH message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns ChatPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.ChatPUSH;
+
+        /**
+         * Gets the default type url for ChatPUSH
          * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
          * @returns The default type url
          */

@@ -48,4 +48,14 @@ export class ServerHander {
         let buf: Uint8Array = myproto.EnterGameREQ.encode(req).finish()
         NetMgr.Get().Send(myproto.MsgId.Msg_EnterGameREQ, buf);
     }
+
+    public ChatReq(msg: string): void {
+        if (msg == "") {
+            return
+        }
+        let req: myproto.ChatREQ = myproto.ChatREQ.create()
+        req.Msg = msg
+        let buf: Uint8Array = myproto.ChatREQ.encode(req).finish()
+        NetMgr.Get().Send(myproto.MsgId.Msg_ChatREQ, buf)
+    }
 }
