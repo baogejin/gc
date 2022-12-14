@@ -14,13 +14,13 @@
   "design-resolution-width": 750,
   "design-resolution-height": 1334,
   "fit-width": true,
-  "fit-height": true,
+  "fit-height": false,
   "use-project-simulator-setting": false,
   "simulator-orientation": false,
   "use-customize-simulator": true,
   "simulator-resolution": {
-    "height": 640,
-    "width": 960
+    "width": 960,
+    "height": 640
   },
   "clear-simulator-cache": true,
   "facebook": {
@@ -36,5 +36,5 @@
   "migrate-history": [
     "cloud-function"
   ],
-  "start-scene": "current"
+  "start-scene": "fafab544-3253-4695-b807-f3616f90183b"
 }

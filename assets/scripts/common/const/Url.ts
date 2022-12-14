@@ -6,6 +6,7 @@ export const ResUrl = {
         TIP: "prefab/tip/Tip",
         HOME: "prefab/home/Home",
         GAME: "prefab/game/Game",
+        Login: "prefab/login/login",
     },
 
     ATLAS: {
@@ -20,6 +21,8 @@ export const ResUrl = {
         SFX1: "audio/sfx1",
         SFX2: "audio/sfx2",
         SFX_UI: "audio/sfxUi",
+
+        BtnClick: "audio/common_click_feedback",
     }
 }
 

@@ -262,16 +262,16 @@ export default class Layer extends cc.Component {
             tipData.unique = false;
         }
         if (!tipData.hasOwnProperty("duration")) {
-            tipData.duration = 1;
+            tipData.duration = 0.3;
         }
         if (!tipData.hasOwnProperty("fade")) {
             tipData.fade = 0.5;
         }
         if (!tipData.hasOwnProperty("start")) {
-            tipData.start = cc.v2(0, 0);
+            tipData.start = cc.v2(0, 100);
         }
         if (!tipData.hasOwnProperty("end")) {
-            tipData.end = cc.v2(0, 0);
+            tipData.end = cc.v2(0, 150);
         }
 
         // 唯一显示
@@ -297,7 +297,7 @@ export default class Layer extends cc.Component {
         // 动画
         let delay = cc.delayTime(tipData.duration);
         let fade = cc.fadeOut(tipData.fade);
-        let moveTo = cc.moveTo(tipData.fade, tipData.end);
+        let moveTo = cc.moveTo(tipData.duration, tipData.end);
         let call = cc.callFunc(() => {
             tipNode.active = false;
             this._tipPool.push(tipNode);
@@ -307,7 +307,8 @@ export default class Layer extends cc.Component {
         tipNode.opacity = 255;
         tipNode.setPosition(tipData.start);
         tipNode.setSiblingIndex(this.tipLayer.childrenCount - 1);
-        tipNode.runAction(cc.sequence(delay, cc.spawn(fade, moveTo), call));
+        // tipNode.runAction(cc.sequence(delay, cc.spawn(fade, moveTo), call));
+        tipNode.runAction(cc.sequence(moveTo, fade, call))
 
         // 数据
         tipNode.getComponent(Tip)?.init(tipData.text);

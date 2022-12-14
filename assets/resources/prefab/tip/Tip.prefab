@@ -24,11 +24,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 10
+        "__id__": 9
       }
     ],
     "_prefab": {
-      "__id__": 11
+      "__id__": 10
     },
     "_opacity": 255,
     "_color": {
@@ -93,26 +93,23 @@
     "_components": [
       {
         "__id__": 7
-      },
-      {
-        "__id__": 8
       }
     ],
     "_prefab": {
-      "__id__": 9
+      "__id__": 8
     },
-    "_opacity": 150,
+    "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 213,
-      "g": 152,
-      "b": 107,
+      "r": 136,
+      "g": 136,
+      "b": 139,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 500,
-      "height": 50.32
+      "width": 550,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -178,8 +175,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 480,
-      "height": 50.32
+      "width": 70.47,
+      "height": 56.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -191,7 +188,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        1.8000000000000007,
         0,
         0,
         0,
@@ -232,8 +229,8 @@
     "_dstBlendFactor": 771,
     "_string": "text",
     "_N$string": "text",
-    "_fontSize": 32,
-    "_lineHeight": 32,
+    "_fontSize": 40,
+    "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -244,7 +241,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 3,
+    "_N$overflow": 0,
     "_N$cacheMode": 0,
     "_id": ""
   },
@@ -258,12 +255,12 @@
     "_enabled": true,
     "_color": {
       "__type__": "cc.Color",
-      "r": 53,
-      "g": 53,
-      "b": 53,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
-    "_width": 5,
+    "_width": 3,
     "_id": ""
   },
   {
@@ -310,38 +307,6 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Layout",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": true,
-    "_layoutSize": {
-      "__type__": "cc.Size",
-      "width": 500,
-      "height": 50.32
-    },
-    "_resize": 1,
-    "_N$layoutType": 3,
-    "_N$cellSize": {
-      "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
-    },
-    "_N$startAxis": 0,
-    "_N$paddingLeft": 10,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 0,
-    "_N$paddingBottom": 0,
-    "_N$spacingX": 0,
-    "_N$spacingY": 0,
-    "_N$verticalDirection": 1,
-    "_N$horizontalDirection": 0,
-    "_N$affectedByScale": false,
-    "_id": ""
-  },
-  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -360,9 +325,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "layout": {
-      "__id__": 8
-    },
+    "layout": null,
     "textLab": {
       "__id__": 4
     },
