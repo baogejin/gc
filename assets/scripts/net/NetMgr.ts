@@ -18,7 +18,7 @@ export class NetMgr {
     public Init(): void {
         this.m_stMsgHeader = new MsgHeader();
         this.m_stMsgHeader.m_iMessageID = 111;
-        this.m_stWebSoket = new WebSocket("ws://127.0.0.1:12345/ws");
+        this.m_stWebSoket = new WebSocket("ws://121.4.101.211:12345/ws");
         this.m_stWebSoket.onopen = this.OnOpen.bind(this);
         this.m_stWebSoket.onerror = this.OnError.bind(this);
         this.m_stWebSoket.onclose = this.OnClose.bind(this);

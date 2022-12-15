@@ -1,5 +1,5 @@
 import Layer from "../../common/cmpt/base/Layer";
-import { ResUrl } from "../../common/const/Url";
+import { DirUrl, ResUrl } from "../../common/const/Url";
 import Res from "../../common/util/Res";
 import { NetMgr } from "../../net/NetMgr";
 
@@ -10,8 +10,11 @@ export default class Main extends cc.Component {
 
     @property(cc.Label) public dcLab: cc.Label = null;
 
-    protected start() {
+    protected async start() {
         NetMgr.Get().Init()
+        Layer.inst.showLoading();
+        await Res.loadDir(DirUrl.AudioCommon, cc.AudioClip);
+        Layer.inst.hideLoading();
         Layer.inst.enterMain(ResUrl.PREFAB.Login);
         // 60s清理一次缓存
         this.schedule(() => {

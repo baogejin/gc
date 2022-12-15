@@ -1,26 +1,7 @@
-import { EventID } from "../../event/EventDefine"
-import EventMgr from "../../event/EventMgr"
-import { myproto } from "../../../scripts/proto/msg"
+import { myproto } from "../proto/msg"
 
-export class MsgBoxMgr {
-    private static m_pInstance: MsgBoxMgr
-    public static Get(): MsgBoxMgr {
-        if (!MsgBoxMgr.m_pInstance) {
-            MsgBoxMgr.m_pInstance = new MsgBoxMgr()
-        }
-        return MsgBoxMgr.m_pInstance
-    }
-
-    public ShowMsg(msg: string) {
-        EventMgr.Get().Emit(EventID.ShowMessageBox, msg)
-    }
-
-    public ShowMsgByRet(ret: myproto.ResultCode) {
-        let msg: string = this.GetResultMsg(ret)
-        EventMgr.Get().Emit(EventID.ShowMessageBox, msg)
-    }
-
-    public GetResultMsg(ret: myproto.ResultCode): string {
+export class ResultMsg {
+    public static GetResultMsg(ret: myproto.ResultCode): string {
         switch (ret) {
             case myproto.ResultCode.Success:
                 return "成功"
@@ -55,6 +36,6 @@ export class MsgBoxMgr {
             default:
                 break
         }
-        return "未知错误" + ret
+        return "错误" + ret
     }
 }

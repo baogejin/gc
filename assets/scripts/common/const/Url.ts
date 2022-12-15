@@ -7,6 +7,8 @@ export const ResUrl = {
         HOME: "prefab/home/Home",
         GAME: "prefab/game/Game",
         Login: "prefab/login/login",
+        CreateRole: "prefab/login/createRole",
+        Town: "prefab/town/town",
     },
 
     ATLAS: {
@@ -22,7 +24,8 @@ export const ResUrl = {
         SFX2: "audio/sfx2",
         SFX_UI: "audio/sfxUi",
 
-        BtnClick: "audio/common_click_feedback",
+        LoginBgm: "audio/common/loginbgm",
+        BtnClick: "audio/common/common_click_feedback",
     }
 }
 
@@ -38,4 +41,5 @@ export const DirUrl = {
     TEXTURE: "textures/",
 
     AUDIO: "audio/",
+    AudioCommon: "audio/common",
 }
