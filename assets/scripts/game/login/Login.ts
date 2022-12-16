@@ -9,6 +9,7 @@ import Layer from "../../common/cmpt/base/Layer";
 import { ResUrl } from "../../common/const/Url";
 import AudioManager, { SfxType } from "../../common/util/AudioManager";
 import Res from "../../common/util/Res";
+import { SkillConfig } from "../../data/gencode/SkillConfig";
 import EventMgr from "../../event/EventMgr";
 import { NetMgr } from "../../net/NetMgr";
 import { ResultMsg } from "../../net/ResultMsg";
@@ -30,7 +31,8 @@ export default class Login extends cc.Component {
     private passwordBox: cc.EditBox
 
     start() {
-        AudioManager.playBgm({ clip: Res.get(ResUrl.AUDIO.LoginBgm, cc.AudioClip), fadeDuration: 2, loop: true });
+        console.log(SkillConfig.Get())
+        AudioManager.playBgm({ clip: Res.get<cc.AudioClip>(ResUrl.AUDIO.LoginBgm, cc.AudioClip), fadeDuration: 2, loop: true });
         this.loginBtn = this.node.getChildByName("loginBtn")
         this.registerBtn = this.node.getChildByName("registerBtn")
         this.accountBox = this.node.getChildByName("account").getComponent(cc.EditBox)

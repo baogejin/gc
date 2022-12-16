@@ -14,6 +14,7 @@ export default class Main extends cc.Component {
         NetMgr.Get().Init()
         Layer.inst.showLoading();
         await Res.loadDir(DirUrl.AudioCommon, cc.AudioClip);
+        await Res.loadDir(DirUrl.JsonData, cc.JsonAsset)
         Layer.inst.hideLoading();
         Layer.inst.enterMain(ResUrl.PREFAB.Login);
         // 60s清理一次缓存

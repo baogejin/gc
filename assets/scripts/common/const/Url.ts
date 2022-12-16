@@ -41,5 +41,7 @@ export const DirUrl = {
     TEXTURE: "textures/",
 
     AUDIO: "audio/",
-    AudioCommon: "audio/common",
+    AudioCommon: "audio/common/",
+
+    JsonData: "json/",
 }
