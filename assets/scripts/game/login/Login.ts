@@ -9,9 +9,8 @@ import Layer from "../../common/cmpt/base/Layer";
 import { ResUrl } from "../../common/const/Url";
 import AudioManager, { SfxType } from "../../common/util/AudioManager";
 import Res from "../../common/util/Res";
-import { SkillConfig } from "../../data/gencode/SkillConfig";
+import { GlobalConfig } from "../../data/gencode/GlobalCfg";
 import EventMgr from "../../event/EventMgr";
-import { NetMgr } from "../../net/NetMgr";
 import { ResultMsg } from "../../net/ResultMsg";
 import { ServerHander } from "../../net/ServerHandler";
 import { myproto } from "../../proto/msg";
@@ -31,7 +30,7 @@ export default class Login extends cc.Component {
     private passwordBox: cc.EditBox
 
     start() {
-        console.log(SkillConfig.Get())
+        console.log(GlobalConfig.Get())
         AudioManager.playBgm({ clip: Res.get<cc.AudioClip>(ResUrl.AUDIO.LoginBgm, cc.AudioClip), fadeDuration: 2, loop: true });
         this.loginBtn = this.node.getChildByName("loginBtn")
         this.registerBtn = this.node.getChildByName("registerBtn")

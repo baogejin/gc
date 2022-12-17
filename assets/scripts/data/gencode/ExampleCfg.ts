@@ -3,18 +3,14 @@ import Res from "../../common/util/Res"
 export class ExampleInfo {
     public ID: number// 数字
     public Name: string// 字符串
+    public Ignore: number// 服务器不用字段
     public Slc1: Array<number>// 数组
-    public Slc2: Array<number>// 数组
-    public DoubleSlc1: Array<Array<number>>// 二维数组
-    public DoubleSlc2: Array<Array<string>>// 二维数组
-    public IsBool: boolean// 布尔
-    public Map1: Map<number,number>// map类型
-    public Map2: Map<number,string>// map类型
 }
 
 export class AbbInfo {
     public ID: number// ID
     public Sth: string// 参数1
+    public Other: string// 其他
 }
 
 export class ExampleConfig {

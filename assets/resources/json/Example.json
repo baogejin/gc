@@ -1,0 +1,11 @@
+{
+    "Example":[
+        {"ID":1,"Name":"坦克","Ignore":0.1,"Slc1":[1,2,3]},
+        {"ID":2,"Name":"蜜雪冰城","Ignore":0.5,"Slc1":[]}
+    ],
+    "Abb":[
+        {"ID":1,"Sth":"abc","Other":"c"},
+        {"ID":2,"Sth":"sdd","Other":"cc"},
+        {"ID":3,"Sth":"sss","Other":"ccc"}
+    ]
+}
