@@ -1,18 +1,40 @@
-export class ChatRender {
-    private m_stSkin: cc.Node;
-    private m_stMsgLab: cc.Label;
-    constructor(inst: cc.Node) {
-        this.m_stSkin = inst;
-        this.m_stMsgLab = this.m_stSkin.getChildByName("label").getComponent(cc.Label);
+// Learn TypeScript:
+//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/typescript.html
+// Learn Attribute:
+//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/reference/attributes.html
+// Learn life-cycle callbacks:
+//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
+
+import VirtualItem from "../../common/cmpt/ui/scrollList/VirtualItem";
+import { PlayerData } from "../playerdata/playerdata";
+
+const { ccclass, property } = cc._decorator;
+
+export class ChatArgs {
+    public Uid: number
+    public Name: string
+    public Msg: string
+}
+
+@ccclass
+export default class ChatRender extends VirtualItem<ChatArgs> {
+    private nameLabel: cc.Label
+    private msgLabel: cc.Label
+    public Uid: number
+
+    onLoad() {
+        this.nameLabel = this.node.getChildByName("name").getComponent(cc.Label)
+        this.msgLabel = this.node.getChildByName("msgbg").getChildByName("label").getComponent(cc.Label)
     }
 
-    public get node(): cc.Node {
-        return this.m_stSkin;
-    }
-
-    public SetMsg(msg: string): void {
-        this.m_stMsgLab.string = msg;
-        // this.m_stMsgLab._forceUpdateRenderData();
-        this.node.height = this.m_stMsgLab.node.height + 3;
+    public onRefresh(args: ChatArgs) {
+        this.Uid = args.Uid
+        this.nameLabel.string = args.Name
+        this.msgLabel.string = args.Msg
+        if (this.Uid == PlayerData.PlayerInfo.Uid) {
+            this.nameLabel.node.color = cc.Color.GREEN
+        } else {
+            this.nameLabel.node.color = cc.Color.YELLOW
+        }
     }
 }

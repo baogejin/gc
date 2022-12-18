@@ -23,9 +23,7 @@ export class ServerHander {
         req.Account = account;
         req.Password = password;
         let buf: Uint8Array = myproto.RegisterREQ.encode(req).finish();
-        console.log(buf.length)
         NetMgr.Get().Send(myproto.MsgId.Msg_RegisterREQ, buf);
-        console.log("register send")
     }
 
     public LoginReq(account: string, password: string): void {

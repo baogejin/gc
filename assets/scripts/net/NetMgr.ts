@@ -1,7 +1,7 @@
+import Layer from "../common/cmpt/base/Layer";
+import { ResUrl } from "../common/const/Url";
 import EventMgr from "../event/EventMgr";
 import { MsgHeader } from "./MsgHeader";
-import { myproto } from "../proto/msg";
-import { ServerHander } from "./ServerHandler";
 
 export class NetMgr {
     private static m_pInstance: NetMgr;
@@ -19,6 +19,8 @@ export class NetMgr {
         this.m_stMsgHeader = new MsgHeader();
         this.m_stMsgHeader.m_iMessageID = 111;
         this.m_stWebSoket = new WebSocket("ws://121.4.101.211:12345/ws");
+        // this.m_stWebSoket = new WebSocket("ws://127.0.0.1:12345/ws");
+        this.m_stWebSoket.binaryType = 'arraybuffer';
         this.m_stWebSoket.onopen = this.OnOpen.bind(this);
         this.m_stWebSoket.onerror = this.OnError.bind(this);
         this.m_stWebSoket.onclose = this.OnClose.bind(this);
@@ -35,20 +37,35 @@ export class NetMgr {
     }
 
     private OnClose(): void {
-
+        Layer.inst.enterMain(ResUrl.PREFAB.Login);
+        Layer.inst.showTip("网络连接已断开")
+        this.Init()
     }
 
     private async OnMessage(event: MessageEvent): Promise<void> {
-        console.log(event);
-        let len = event.data.length
-        console.log(len)
-        let bysData: Uint8Array = new TextEncoder().encode(event.data)
-        console.log("Received MsgLen = " + bysData.byteLength);
-        if (bysData.byteLength == 0) {
-            console.error(`数据为空!`);
-            return;
+        if (event.data instanceof ArrayBuffer) {
+            let bysData: Uint8Array = new Uint8Array(event.data);
+            if (bysData.byteLength == 0) {
+                console.error(`数据为空!`);
+                return;
+            }
+            this.m_stMsgHeader.Decode(bysData);
+        } else if (event.data instanceof Blob) {
+            let bysData: Uint8Array = new Uint8Array(await event.data.arrayBuffer());
+            if (bysData.byteLength == 0) {
+                console.error(`数据为空!`);
+                return;
+            }
+            this.m_stMsgHeader.Decode(bysData);
+        } else {
+            let bysData: Uint8Array = new TextEncoder().encode(event.data)
+            if (bysData.byteLength == 0) {
+                console.error(`数据为空!`);
+                return;
+            }
+            this.m_stMsgHeader.Decode(bysData);
         }
-        this.m_stMsgHeader.Decode(bysData);
+
         EventMgr.Get().Emit(this.m_stMsgHeader.m_iMessageID, this.m_stMsgHeader.m_stBody);
     }
 

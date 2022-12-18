@@ -62,7 +62,6 @@ export default class NewClass extends cc.Component {
     }
 
     private OnEnterGameACK(data: Uint8Array): void {
-        console.log(data)
         let ack: myproto.EnterGameACK = myproto.EnterGameACK.decode(data)
         if (ack.Ret == myproto.ResultCode.Success) {
             PlayerData.PlayerInfo = <myproto.PlayerInfo>ack.Info

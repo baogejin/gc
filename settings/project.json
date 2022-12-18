@@ -36,5 +36,6 @@
   "migrate-history": [
     "cloud-function"
   ],
-  "start-scene": "fafab544-3253-4695-b807-f3616f90183b"
+  "start-scene": "fafab544-3253-4695-b807-f3616f90183b",
+  "last-module-event-record-time": 1671339300606
 }

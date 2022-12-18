@@ -13,12 +13,10 @@ export class MsgHeader {
         let headBys: Uint8Array = new Uint8Array(buffer);
 
         let index: number = 0;
-        console.log(buffer.byteLength, MsgHeader.CONST_HEADLEN + bys.length)
         index = CodeEngine.encode_int32(headBys, index, buffer.byteLength);
         index = CodeEngine.encode_int64(headBys, index, this.m_iSeq);
         index = CodeEngine.encode_int32(headBys, index, this.m_iMessageID);
         headBys.set(bys, index);
-        console.log(buffer)
         return buffer;
     }
 

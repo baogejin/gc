@@ -1,7 +1,7 @@
 {
   "title": "gc",
   "packageName": "org.cocos2d.demo",
-  "startScene": "4365626f-ffbf-4776-a315-dbad6abcbc7f",
+  "startScene": "fafab544-3253-4695-b807-f3616f90183b",
   "excludeScenes": [],
   "orientation": {
     "landscapeRight": true,
@@ -9,7 +9,7 @@
     "portrait": false,
     "upsideDown": false
   },
-  "webOrientation": "auto",
+  "webOrientation": "portrait",
   "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": true,
   "mainCompressionType": "default",
