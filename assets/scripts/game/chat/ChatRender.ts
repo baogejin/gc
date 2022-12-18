@@ -31,7 +31,7 @@ export default class ChatRender extends VirtualItem<ChatArgs> {
         this.Uid = args.Uid
         this.nameLabel.string = args.Name
         this.msgLabel.string = args.Msg
-        if (this.Uid == PlayerData.PlayerInfo.Uid) {
+        if (this.Uid == PlayerData.Get().PlayerInfo.Uid) {
             this.nameLabel.node.color = cc.Color.GREEN
         } else {
             this.nameLabel.node.color = cc.Color.YELLOW

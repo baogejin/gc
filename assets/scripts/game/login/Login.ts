@@ -30,8 +30,10 @@ export default class Login extends cc.Component {
 
     private caseBtn: cc.Node
 
-    start() {
-        // AudioManager.playBgm({ clip: Res.get<cc.AudioClip>(ResUrl.AUDIO.LoginBgm, cc.AudioClip), fadeDuration: 2, loop: true });
+    async start() {
+        PlayerData.Get().Reset()
+        // let bgm = await Res.load<cc.AudioClip>(ResUrl.AUDIO.LoginBgm, cc.AudioClip)
+        // AudioManager.playBgm({ clip: bgm, fadeDuration: 2, loop: true });
         this.loginBtn = this.node.getChildByName("loginBtn")
         this.registerBtn = this.node.getChildByName("registerBtn")
         this.accountBox = this.node.getChildByName("account").getComponent(cc.EditBox)
@@ -111,7 +113,6 @@ export default class Login extends cc.Component {
     private OnEnterGameACK(data: Uint8Array): void {
         let ack: myproto.EnterGameACK = myproto.EnterGameACK.decode(data)
         if (ack.Ret == myproto.ResultCode.Success) {
-            PlayerData.PlayerInfo = <myproto.PlayerInfo>ack.Info
             Layer.inst.enterMain(ResUrl.PREFAB.Town);
         } else {
             Layer.inst.showTip(ResultMsg.GetResultMsg(ack.Ret))

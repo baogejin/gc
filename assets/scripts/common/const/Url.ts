@@ -24,7 +24,7 @@ export const ResUrl = {
         SFX2: "audio/sfx2",
         SFX_UI: "audio/sfxUi",
 
-        LoginBgm: "audio/common/loginbgm",
+        LoginBgm: "audio/login/loginbgm",
         BtnClick: "audio/common/common_click_feedback",
     }
 }

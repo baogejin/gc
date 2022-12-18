@@ -1,7 +1,6 @@
 import Layer from "../../common/cmpt/base/Layer";
 import { DirUrl, ResUrl } from "../../common/const/Url";
 import Res from "../../common/util/Res";
-import { ChatMgr } from "../../game/chat/ChatMgr";
 import { NetMgr } from "../../net/NetMgr";
 
 const { ccclass, property } = cc._decorator;
@@ -13,7 +12,6 @@ export default class Main extends cc.Component {
 
     protected async start() {
         NetMgr.Get().Init()
-        ChatMgr.Get().Clear()
         Layer.inst.showLoading();
         await Res.loadDir(DirUrl.AudioCommon, cc.AudioClip);
         await Res.loadDir(DirUrl.JsonData, cc.JsonAsset)

@@ -9,6 +9,7 @@ import Layer from "../../common/cmpt/base/Layer";
 import { ResUrl } from "../../common/const/Url";
 import AudioManager, { SfxType } from "../../common/util/AudioManager";
 import Res from "../../common/util/Res";
+import Bag from "../bag/Bag";
 import ChatPanel from "../chat/ChatPanel";
 
 const { ccclass, property } = cc._decorator;
@@ -20,11 +21,14 @@ export default class Town extends cc.Component {
 
     // onLoad () {}
     private chatBtn: cc.Node
+    private bagBtn: cc.Node
 
     start() {
         this.chatBtn = this.node.getChildByName("chat")
+        this.bagBtn = this.node.getChildByName("bottom").getChildByName("bag")
 
         this.chatBtn.on(cc.Node.EventType.TOUCH_END, this.OnChatBtn, this)
+        this.bagBtn.on(cc.Node.EventType.TOUCH_END, this.OnBagBtn, this)
 
     }
 
@@ -33,5 +37,10 @@ export default class Town extends cc.Component {
     private OnChatBtn(e): void {
         AudioManager.playSfx(Res.get<cc.AudioClip>(ResUrl.AUDIO.BtnClick, cc.AudioClip), SfxType.NORMAL);
         Layer.inst.openUniDialogAsync(ChatPanel.pUrl);
+    }
+
+    private OnBagBtn(e): void {
+        AudioManager.playSfx(Res.get<cc.AudioClip>(ResUrl.AUDIO.BtnClick, cc.AudioClip), SfxType.NORMAL);
+        Layer.inst.openUniDialogAsync(Bag.pUrl)
     }
 }

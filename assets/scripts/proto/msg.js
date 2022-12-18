@@ -37,6 +37,9 @@ $root.myproto = (function () {
      * @property {number} Msg_ChatREQ=12 Msg_ChatREQ value
      * @property {number} Msg_ChatACK=13 Msg_ChatACK value
      * @property {number} Msg_ChatPUSH=14 Msg_ChatPUSH value
+     * @property {number} Msg_GMREQ=15 Msg_GMREQ value
+     * @property {number} Msg_GMACK=16 Msg_GMACK value
+     * @property {number} Msg_ItemUpdatePUSH=17 Msg_ItemUpdatePUSH value
      */
     myproto.MsgId = (function () {
         var valuesById = {}, values = Object.create(valuesById);
@@ -55,6 +58,9 @@ $root.myproto = (function () {
         values[valuesById[12] = "Msg_ChatREQ"] = 12;
         values[valuesById[13] = "Msg_ChatACK"] = 13;
         values[valuesById[14] = "Msg_ChatPUSH"] = 14;
+        values[valuesById[15] = "Msg_GMREQ"] = 15;
+        values[valuesById[16] = "Msg_GMACK"] = 16;
+        values[valuesById[17] = "Msg_ItemUpdatePUSH"] = 17;
         return values;
     })();
 
@@ -78,6 +84,9 @@ $root.myproto = (function () {
      * @property {number} CreateRoleFaild=112 CreateRoleFaild value
      * @property {number} EnterGameFailed=113 EnterGameFailed value
      * @property {number} PlayerNotFound=114 PlayerNotFound value
+     * @property {number} GMCmdNotFound=115 GMCmdNotFound value
+     * @property {number} GMCmdParamErr=116 GMCmdParamErr value
+     * @property {number} GMCmdExecErr=117 GMCmdExecErr value
      */
     myproto.ResultCode = (function () {
         var valuesById = {}, values = Object.create(valuesById);
@@ -97,6 +106,9 @@ $root.myproto = (function () {
         values[valuesById[112] = "CreateRoleFaild"] = 112;
         values[valuesById[113] = "EnterGameFailed"] = 113;
         values[valuesById[114] = "PlayerNotFound"] = 114;
+        values[valuesById[115] = "GMCmdNotFound"] = 115;
+        values[valuesById[116] = "GMCmdParamErr"] = 116;
+        values[valuesById[117] = "GMCmdExecErr"] = 117;
         return values;
     })();
 
@@ -596,6 +608,216 @@ $root.myproto = (function () {
         return LoginACK;
     })();
 
+    myproto.PlayerBagInfo = (function () {
+
+        /**
+         * Properties of a PlayerBagInfo.
+         * @memberof myproto
+         * @interface IPlayerBagInfo
+         * @property {Object.<string,number|Long>|null} [Unoccupied] PlayerBagInfo Unoccupied
+         * @property {Object.<string,myproto.IItem>|null} [StackItems] PlayerBagInfo StackItems
+         * @property {Object.<string,myproto.IItem>|null} [UnstackItems] PlayerBagInfo UnstackItems
+         */
+
+        /**
+         * Constructs a new PlayerBagInfo.
+         * @memberof myproto
+         * @classdesc Represents a PlayerBagInfo.
+         * @implements IPlayerBagInfo
+         * @constructor
+         * @param {myproto.IPlayerBagInfo=} [p] Properties to set
+         */
+        function PlayerBagInfo(p) {
+            this.Unoccupied = {};
+            this.StackItems = {};
+            this.UnstackItems = {};
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * PlayerBagInfo Unoccupied.
+         * @member {Object.<string,number|Long>} Unoccupied
+         * @memberof myproto.PlayerBagInfo
+         * @instance
+         */
+        PlayerBagInfo.prototype.Unoccupied = $util.emptyObject;
+
+        /**
+         * PlayerBagInfo StackItems.
+         * @member {Object.<string,myproto.IItem>} StackItems
+         * @memberof myproto.PlayerBagInfo
+         * @instance
+         */
+        PlayerBagInfo.prototype.StackItems = $util.emptyObject;
+
+        /**
+         * PlayerBagInfo UnstackItems.
+         * @member {Object.<string,myproto.IItem>} UnstackItems
+         * @memberof myproto.PlayerBagInfo
+         * @instance
+         */
+        PlayerBagInfo.prototype.UnstackItems = $util.emptyObject;
+
+        /**
+         * Creates a new PlayerBagInfo instance using the specified properties.
+         * @function create
+         * @memberof myproto.PlayerBagInfo
+         * @static
+         * @param {myproto.IPlayerBagInfo=} [properties] Properties to set
+         * @returns {myproto.PlayerBagInfo} PlayerBagInfo instance
+         */
+        PlayerBagInfo.create = function create(properties) {
+            return new PlayerBagInfo(properties);
+        };
+
+        /**
+         * Encodes the specified PlayerBagInfo message. Does not implicitly {@link myproto.PlayerBagInfo.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.PlayerBagInfo
+         * @static
+         * @param {myproto.IPlayerBagInfo} m PlayerBagInfo message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PlayerBagInfo.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Unoccupied != null && Object.hasOwnProperty.call(m, "Unoccupied")) {
+                for (var ks = Object.keys(m.Unoccupied), i = 0; i < ks.length; ++i) {
+                    w.uint32(10).fork().uint32(8).int32(ks[i]).uint32(16).int64(m.Unoccupied[ks[i]]).ldelim();
+                }
+            }
+            if (m.StackItems != null && Object.hasOwnProperty.call(m, "StackItems")) {
+                for (var ks = Object.keys(m.StackItems), i = 0; i < ks.length; ++i) {
+                    w.uint32(18).fork().uint32(8).int32(ks[i]);
+                    $root.myproto.Item.encode(m.StackItems[ks[i]], w.uint32(18).fork()).ldelim().ldelim();
+                }
+            }
+            if (m.UnstackItems != null && Object.hasOwnProperty.call(m, "UnstackItems")) {
+                for (var ks = Object.keys(m.UnstackItems), i = 0; i < ks.length; ++i) {
+                    w.uint32(26).fork().uint32(8).uint64(ks[i]);
+                    $root.myproto.Item.encode(m.UnstackItems[ks[i]], w.uint32(18).fork()).ldelim().ldelim();
+                }
+            }
+            return w;
+        };
+
+        /**
+         * Decodes a PlayerBagInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.PlayerBagInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.PlayerBagInfo} PlayerBagInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PlayerBagInfo.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.PlayerBagInfo(), k, value;
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        if (m.Unoccupied === $util.emptyObject)
+                            m.Unoccupied = {};
+                        var c2 = r.uint32() + r.pos;
+                        k = 0;
+                        value = 0;
+                        while (r.pos < c2) {
+                            var tag2 = r.uint32();
+                            switch (tag2 >>> 3) {
+                                case 1:
+                                    k = r.int32();
+                                    break;
+                                case 2:
+                                    value = r.int64();
+                                    break;
+                                default:
+                                    r.skipType(tag2 & 7);
+                                    break;
+                            }
+                        }
+                        m.Unoccupied[k] = value;
+                        break;
+                    }
+                    case 2: {
+                        if (m.StackItems === $util.emptyObject)
+                            m.StackItems = {};
+                        var c2 = r.uint32() + r.pos;
+                        k = 0;
+                        value = null;
+                        while (r.pos < c2) {
+                            var tag2 = r.uint32();
+                            switch (tag2 >>> 3) {
+                                case 1:
+                                    k = r.int32();
+                                    break;
+                                case 2:
+                                    value = $root.myproto.Item.decode(r, r.uint32());
+                                    break;
+                                default:
+                                    r.skipType(tag2 & 7);
+                                    break;
+                            }
+                        }
+                        m.StackItems[k] = value;
+                        break;
+                    }
+                    case 3: {
+                        if (m.UnstackItems === $util.emptyObject)
+                            m.UnstackItems = {};
+                        var c2 = r.uint32() + r.pos;
+                        k = 0;
+                        value = null;
+                        while (r.pos < c2) {
+                            var tag2 = r.uint32();
+                            switch (tag2 >>> 3) {
+                                case 1:
+                                    k = r.uint64();
+                                    break;
+                                case 2:
+                                    value = $root.myproto.Item.decode(r, r.uint32());
+                                    break;
+                                default:
+                                    r.skipType(tag2 & 7);
+                                    break;
+                            }
+                        }
+                        m.UnstackItems[typeof k === "object" ? $util.longToHash(k) : k] = value;
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for PlayerBagInfo
+         * @function getTypeUrl
+         * @memberof myproto.PlayerBagInfo
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        PlayerBagInfo.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.PlayerBagInfo";
+        };
+
+        return PlayerBagInfo;
+    })();
+
     myproto.PlayerInfo = (function () {
 
         /**
@@ -604,6 +826,7 @@ $root.myproto = (function () {
          * @interface IPlayerInfo
          * @property {number|Long|null} [Uid] PlayerInfo Uid
          * @property {string|null} [Name] PlayerInfo Name
+         * @property {myproto.IPlayerBagInfo|null} [BagInfo] PlayerInfo BagInfo
          */
 
         /**
@@ -638,6 +861,14 @@ $root.myproto = (function () {
         PlayerInfo.prototype.Name = "";
 
         /**
+         * PlayerInfo BagInfo.
+         * @member {myproto.IPlayerBagInfo|null|undefined} BagInfo
+         * @memberof myproto.PlayerInfo
+         * @instance
+         */
+        PlayerInfo.prototype.BagInfo = null;
+
+        /**
          * Creates a new PlayerInfo instance using the specified properties.
          * @function create
          * @memberof myproto.PlayerInfo
@@ -665,6 +896,8 @@ $root.myproto = (function () {
                 w.uint32(8).uint64(m.Uid);
             if (m.Name != null && Object.hasOwnProperty.call(m, "Name"))
                 w.uint32(18).string(m.Name);
+            if (m.BagInfo != null && Object.hasOwnProperty.call(m, "BagInfo"))
+                $root.myproto.PlayerBagInfo.encode(m.BagInfo, w.uint32(26).fork()).ldelim();
             return w;
         };
 
@@ -692,6 +925,10 @@ $root.myproto = (function () {
                     }
                     case 2: {
                         m.Name = r.string();
+                        break;
+                    }
+                    case 3: {
+                        m.BagInfo = $root.myproto.PlayerBagInfo.decode(r, r.uint32());
                         break;
                     }
                     default:
@@ -1808,6 +2045,602 @@ $root.myproto = (function () {
         };
 
         return ChatPUSH;
+    })();
+
+    /**
+     * UnitType enum.
+     * @name myproto.UnitType
+     * @enum {number}
+     * @property {number} UnitMonster=0 UnitMonster value
+     * @property {number} UnitPlayer=1 UnitPlayer value
+     */
+    myproto.UnitType = (function () {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "UnitMonster"] = 0;
+        values[valuesById[1] = "UnitPlayer"] = 1;
+        return values;
+    })();
+
+    /**
+     * TargetType enum.
+     * @name myproto.TargetType
+     * @enum {number}
+     * @property {number} TargetNone=0 TargetNone value
+     * @property {number} EnemySingle=1 EnemySingle value
+     * @property {number} EnemySingleFront=2 EnemySingleFront value
+     * @property {number} EnemySingleBehind=3 EnemySingleBehind value
+     * @property {number} EnemyAll=4 EnemyAll value
+     * @property {number} EnemyFrontAll=5 EnemyFrontAll value
+     * @property {number} EnemyBehindAll=6 EnemyBehindAll value
+     * @property {number} TargetSelf=10 TargetSelf value
+     * @property {number} AllySingle=11 AllySingle value
+     * @property {number} AllySingleFront=12 AllySingleFront value
+     * @property {number} AllySingleBehind=13 AllySingleBehind value
+     * @property {number} AllyAll=14 AllyAll value
+     * @property {number} AllyFrontAll=15 AllyFrontAll value
+     * @property {number} AllyBehindAll=16 AllyBehindAll value
+     */
+    myproto.TargetType = (function () {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "TargetNone"] = 0;
+        values[valuesById[1] = "EnemySingle"] = 1;
+        values[valuesById[2] = "EnemySingleFront"] = 2;
+        values[valuesById[3] = "EnemySingleBehind"] = 3;
+        values[valuesById[4] = "EnemyAll"] = 4;
+        values[valuesById[5] = "EnemyFrontAll"] = 5;
+        values[valuesById[6] = "EnemyBehindAll"] = 6;
+        values[valuesById[10] = "TargetSelf"] = 10;
+        values[valuesById[11] = "AllySingle"] = 11;
+        values[valuesById[12] = "AllySingleFront"] = 12;
+        values[valuesById[13] = "AllySingleBehind"] = 13;
+        values[valuesById[14] = "AllyAll"] = 14;
+        values[valuesById[15] = "AllyFrontAll"] = 15;
+        values[valuesById[16] = "AllyBehindAll"] = 16;
+        return values;
+    })();
+
+    myproto.Item = (function () {
+
+        /**
+         * Properties of an Item.
+         * @memberof myproto
+         * @interface IItem
+         * @property {number|Long|null} [Id] Item Id
+         * @property {number|null} [ItemId] Item ItemId
+         * @property {number|Long|null} [Num] Item Num
+         */
+
+        /**
+         * Constructs a new Item.
+         * @memberof myproto
+         * @classdesc Represents an Item.
+         * @implements IItem
+         * @constructor
+         * @param {myproto.IItem=} [p] Properties to set
+         */
+        function Item(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * Item Id.
+         * @member {number|Long} Id
+         * @memberof myproto.Item
+         * @instance
+         */
+        Item.prototype.Id = $util.Long ? $util.Long.fromBits(0, 0, true) : 0;
+
+        /**
+         * Item ItemId.
+         * @member {number} ItemId
+         * @memberof myproto.Item
+         * @instance
+         */
+        Item.prototype.ItemId = 0;
+
+        /**
+         * Item Num.
+         * @member {number|Long} Num
+         * @memberof myproto.Item
+         * @instance
+         */
+        Item.prototype.Num = $util.Long ? $util.Long.fromBits(0, 0, false) : 0;
+
+        /**
+         * Creates a new Item instance using the specified properties.
+         * @function create
+         * @memberof myproto.Item
+         * @static
+         * @param {myproto.IItem=} [properties] Properties to set
+         * @returns {myproto.Item} Item instance
+         */
+        Item.create = function create(properties) {
+            return new Item(properties);
+        };
+
+        /**
+         * Encodes the specified Item message. Does not implicitly {@link myproto.Item.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.Item
+         * @static
+         * @param {myproto.IItem} m Item message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Item.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Id != null && Object.hasOwnProperty.call(m, "Id"))
+                w.uint32(8).uint64(m.Id);
+            if (m.ItemId != null && Object.hasOwnProperty.call(m, "ItemId"))
+                w.uint32(16).int32(m.ItemId);
+            if (m.Num != null && Object.hasOwnProperty.call(m, "Num"))
+                w.uint32(24).int64(m.Num);
+            return w;
+        };
+
+        /**
+         * Decodes an Item message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.Item
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.Item} Item
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Item.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.Item();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Id = r.uint64();
+                        break;
+                    }
+                    case 2: {
+                        m.ItemId = r.int32();
+                        break;
+                    }
+                    case 3: {
+                        m.Num = r.int64();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for Item
+         * @function getTypeUrl
+         * @memberof myproto.Item
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        Item.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.Item";
+        };
+
+        return Item;
+    })();
+
+    /**
+     * ItemType enum.
+     * @name myproto.ItemType
+     * @enum {number}
+     * @property {number} ItemTypeNone=0 ItemTypeNone value
+     * @property {number} UnoccupiedItem=1 UnoccupiedItem value
+     * @property {number} StackItem=2 StackItem value
+     * @property {number} UnstackItem=3 UnstackItem value
+     * @property {number} EquipItem=4 EquipItem value
+     */
+    myproto.ItemType = (function () {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "ItemTypeNone"] = 0;
+        values[valuesById[1] = "UnoccupiedItem"] = 1;
+        values[valuesById[2] = "StackItem"] = 2;
+        values[valuesById[3] = "UnstackItem"] = 3;
+        values[valuesById[4] = "EquipItem"] = 4;
+        return values;
+    })();
+
+    /**
+     * Quality enum.
+     * @name myproto.Quality
+     * @enum {number}
+     * @property {number} QualityNone=0 QualityNone value
+     * @property {number} White=1 White value
+     * @property {number} Green=2 Green value
+     * @property {number} Blue=3 Blue value
+     * @property {number} Purple=4 Purple value
+     * @property {number} Orange=5 Orange value
+     */
+    myproto.Quality = (function () {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "QualityNone"] = 0;
+        values[valuesById[1] = "White"] = 1;
+        values[valuesById[2] = "Green"] = 2;
+        values[valuesById[3] = "Blue"] = 3;
+        values[valuesById[4] = "Purple"] = 4;
+        values[valuesById[5] = "Orange"] = 5;
+        return values;
+    })();
+
+    myproto.GMREQ = (function () {
+
+        /**
+         * Properties of a GMREQ.
+         * @memberof myproto
+         * @interface IGMREQ
+         * @property {string|null} [Cmd] GMREQ Cmd
+         */
+
+        /**
+         * Constructs a new GMREQ.
+         * @memberof myproto
+         * @classdesc Represents a GMREQ.
+         * @implements IGMREQ
+         * @constructor
+         * @param {myproto.IGMREQ=} [p] Properties to set
+         */
+        function GMREQ(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * GMREQ Cmd.
+         * @member {string} Cmd
+         * @memberof myproto.GMREQ
+         * @instance
+         */
+        GMREQ.prototype.Cmd = "";
+
+        /**
+         * Creates a new GMREQ instance using the specified properties.
+         * @function create
+         * @memberof myproto.GMREQ
+         * @static
+         * @param {myproto.IGMREQ=} [properties] Properties to set
+         * @returns {myproto.GMREQ} GMREQ instance
+         */
+        GMREQ.create = function create(properties) {
+            return new GMREQ(properties);
+        };
+
+        /**
+         * Encodes the specified GMREQ message. Does not implicitly {@link myproto.GMREQ.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.GMREQ
+         * @static
+         * @param {myproto.IGMREQ} m GMREQ message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GMREQ.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Cmd != null && Object.hasOwnProperty.call(m, "Cmd"))
+                w.uint32(10).string(m.Cmd);
+            return w;
+        };
+
+        /**
+         * Decodes a GMREQ message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.GMREQ
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.GMREQ} GMREQ
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GMREQ.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.GMREQ();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Cmd = r.string();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for GMREQ
+         * @function getTypeUrl
+         * @memberof myproto.GMREQ
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        GMREQ.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.GMREQ";
+        };
+
+        return GMREQ;
+    })();
+
+    myproto.GMACK = (function () {
+
+        /**
+         * Properties of a GMACK.
+         * @memberof myproto
+         * @interface IGMACK
+         * @property {myproto.ResultCode|null} [Ret] GMACK Ret
+         */
+
+        /**
+         * Constructs a new GMACK.
+         * @memberof myproto
+         * @classdesc Represents a GMACK.
+         * @implements IGMACK
+         * @constructor
+         * @param {myproto.IGMACK=} [p] Properties to set
+         */
+        function GMACK(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * GMACK Ret.
+         * @member {myproto.ResultCode} Ret
+         * @memberof myproto.GMACK
+         * @instance
+         */
+        GMACK.prototype.Ret = 0;
+
+        /**
+         * Creates a new GMACK instance using the specified properties.
+         * @function create
+         * @memberof myproto.GMACK
+         * @static
+         * @param {myproto.IGMACK=} [properties] Properties to set
+         * @returns {myproto.GMACK} GMACK instance
+         */
+        GMACK.create = function create(properties) {
+            return new GMACK(properties);
+        };
+
+        /**
+         * Encodes the specified GMACK message. Does not implicitly {@link myproto.GMACK.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.GMACK
+         * @static
+         * @param {myproto.IGMACK} m GMACK message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GMACK.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Ret != null && Object.hasOwnProperty.call(m, "Ret"))
+                w.uint32(8).int32(m.Ret);
+            return w;
+        };
+
+        /**
+         * Decodes a GMACK message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.GMACK
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.GMACK} GMACK
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GMACK.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.GMACK();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Ret = r.int32();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for GMACK
+         * @function getTypeUrl
+         * @memberof myproto.GMACK
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        GMACK.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.GMACK";
+        };
+
+        return GMACK;
+    })();
+
+    /**
+     * ItemUpdateType enum.
+     * @name myproto.ItemUpdateType
+     * @enum {number}
+     * @property {number} ItemUpdateNone=0 ItemUpdateNone value
+     * @property {number} ItemAdd=1 ItemAdd value
+     * @property {number} ItemDel=2 ItemDel value
+     */
+    myproto.ItemUpdateType = (function () {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "ItemUpdateNone"] = 0;
+        values[valuesById[1] = "ItemAdd"] = 1;
+        values[valuesById[2] = "ItemDel"] = 2;
+        return values;
+    })();
+
+    myproto.ItemUpdatePUSH = (function () {
+
+        /**
+         * Properties of an ItemUpdatePUSH.
+         * @memberof myproto
+         * @interface IItemUpdatePUSH
+         * @property {myproto.ItemUpdateType|null} [UpdateType] ItemUpdatePUSH UpdateType
+         * @property {Array.<myproto.IItem>|null} [Items] ItemUpdatePUSH Items
+         */
+
+        /**
+         * Constructs a new ItemUpdatePUSH.
+         * @memberof myproto
+         * @classdesc Represents an ItemUpdatePUSH.
+         * @implements IItemUpdatePUSH
+         * @constructor
+         * @param {myproto.IItemUpdatePUSH=} [p] Properties to set
+         */
+        function ItemUpdatePUSH(p) {
+            this.Items = [];
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * ItemUpdatePUSH UpdateType.
+         * @member {myproto.ItemUpdateType} UpdateType
+         * @memberof myproto.ItemUpdatePUSH
+         * @instance
+         */
+        ItemUpdatePUSH.prototype.UpdateType = 0;
+
+        /**
+         * ItemUpdatePUSH Items.
+         * @member {Array.<myproto.IItem>} Items
+         * @memberof myproto.ItemUpdatePUSH
+         * @instance
+         */
+        ItemUpdatePUSH.prototype.Items = $util.emptyArray;
+
+        /**
+         * Creates a new ItemUpdatePUSH instance using the specified properties.
+         * @function create
+         * @memberof myproto.ItemUpdatePUSH
+         * @static
+         * @param {myproto.IItemUpdatePUSH=} [properties] Properties to set
+         * @returns {myproto.ItemUpdatePUSH} ItemUpdatePUSH instance
+         */
+        ItemUpdatePUSH.create = function create(properties) {
+            return new ItemUpdatePUSH(properties);
+        };
+
+        /**
+         * Encodes the specified ItemUpdatePUSH message. Does not implicitly {@link myproto.ItemUpdatePUSH.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.ItemUpdatePUSH
+         * @static
+         * @param {myproto.IItemUpdatePUSH} m ItemUpdatePUSH message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ItemUpdatePUSH.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.UpdateType != null && Object.hasOwnProperty.call(m, "UpdateType"))
+                w.uint32(8).int32(m.UpdateType);
+            if (m.Items != null && m.Items.length) {
+                for (var i = 0; i < m.Items.length; ++i)
+                    $root.myproto.Item.encode(m.Items[i], w.uint32(18).fork()).ldelim();
+            }
+            return w;
+        };
+
+        /**
+         * Decodes an ItemUpdatePUSH message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.ItemUpdatePUSH
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.ItemUpdatePUSH} ItemUpdatePUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ItemUpdatePUSH.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.ItemUpdatePUSH();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.UpdateType = r.int32();
+                        break;
+                    }
+                    case 2: {
+                        if (!(m.Items && m.Items.length))
+                            m.Items = [];
+                        m.Items.push($root.myproto.Item.decode(r, r.uint32()));
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for ItemUpdatePUSH
+         * @function getTypeUrl
+         * @memberof myproto.ItemUpdatePUSH
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        ItemUpdatePUSH.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.ItemUpdatePUSH";
+        };
+
+        return ItemUpdatePUSH;
     })();
 
     return myproto;

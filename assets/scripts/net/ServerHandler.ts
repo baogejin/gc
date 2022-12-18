@@ -56,4 +56,11 @@ export class ServerHander {
         let buf: Uint8Array = myproto.ChatREQ.encode(req).finish()
         NetMgr.Get().Send(myproto.MsgId.Msg_ChatREQ, buf)
     }
+
+    public GMReq(cmd: string): void {
+        let req: myproto.GMREQ = myproto.GMREQ.create()
+        req.Cmd = cmd
+        let buf: Uint8Array = myproto.GMREQ.encode(req).finish()
+        NetMgr.Get().Send(myproto.MsgId.Msg_GMREQ, buf)
+    }
 }

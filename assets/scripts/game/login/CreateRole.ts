@@ -13,7 +13,6 @@ import EventMgr from "../../event/EventMgr";
 import { ResultMsg } from "../../net/ResultMsg";
 import { ServerHander } from "../../net/ServerHandler";
 import { myproto } from "../../proto/msg";
-import { PlayerData } from "../playerdata/playerdata";
 
 const { ccclass, property } = cc._decorator;
 
@@ -64,7 +63,6 @@ export default class NewClass extends cc.Component {
     private OnEnterGameACK(data: Uint8Array): void {
         let ack: myproto.EnterGameACK = myproto.EnterGameACK.decode(data)
         if (ack.Ret == myproto.ResultCode.Success) {
-            PlayerData.PlayerInfo = <myproto.PlayerInfo>ack.Info
             Layer.inst.enterMain(ResUrl.PREFAB.Town);
         } else {
             Layer.inst.showTip(ResultMsg.GetResultMsg(ack.Ret))

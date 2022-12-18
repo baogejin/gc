@@ -15,7 +15,7 @@ import { ResUrl } from "../../common/const/Url";
 import VirtualList from "../../common/cmpt/ui/scrollList/VirtualList";
 import { ChatArgs } from "./ChatRender";
 import Layer from "../../common/cmpt/base/Layer";
-import { ChatMgr } from "./ChatMgr";
+import { PlayerData } from "../playerdata/playerdata";
 
 const { ccclass, property } = cc._decorator;
 
@@ -71,7 +71,7 @@ export default class ChatPanel extends DialogBase {
     }
 
     private InitChat(): void {
-        let chats = ChatMgr.Get().GetChatHistory()
+        let chats = PlayerData.Get().ChatHistory
         chats.forEach(arg => {
             this.list.push(arg)
         })

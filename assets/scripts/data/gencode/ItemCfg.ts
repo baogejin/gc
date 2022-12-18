@@ -5,6 +5,8 @@ export class ItemInfo {
     public Name: string// 物品名字
     public Type: number// 物品类型
     public Quality: number// 品质
+    public Icon: string// icon资源名称
+    public Desc: string// 物品tip描述
 }
 
 export class ItemConfig {
