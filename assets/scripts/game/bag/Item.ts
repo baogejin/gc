@@ -24,7 +24,7 @@ export default class Item extends VirtualItem<ItemArgs> {
     private icon: cc.Sprite
     private numLab: cc.Label
 
-    protected async onLoad() {
+    protected onLoad() {
         this.frame = this.node.getChildByName("frame").getComponent(cc.Sprite)
         this.icon = this.node.getChildByName("icon").getComponent(cc.Sprite)
         this.numLab = this.node.getChildByName("num").getComponent(cc.Label)
