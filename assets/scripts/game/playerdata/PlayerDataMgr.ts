@@ -1,6 +1,9 @@
-import { myproto } from "../../../scripts/proto/msg";
+import { myproto } from "../../proto/msg";
+import { ItemConfig } from "../../data/gencode/ItemCfg";
 import EventMgr from "../../event/EventMgr";
 import { ChatArgs } from "../chat/ChatRender";
+import { PlayerInfo } from "./PlayerInfo";
+import { BagInfo } from "./BagInfo";
 
 export class PlayerData {
     private static instance: PlayerData
@@ -11,16 +14,18 @@ export class PlayerData {
         }
         return PlayerData.instance
     }
-    public PlayerInfo: myproto.PlayerInfo
+    public PlayerInfo: PlayerInfo
+    public BagInfo: BagInfo
     public ChatHistory: Array<ChatArgs>
 
 
     public Reset(): void {
-        this.ChatHistory.length = 0
-        this.PlayerInfo = new myproto.PlayerInfo()
+        this.PlayerInfo = PlayerInfo.NewPlayerInfo()
+        this.BagInfo = BagInfo.NewBagInfo()
+        this.ChatHistory = new Array<ChatArgs>()
     }
     private init(): void {
-        this.ChatHistory = new Array<ChatArgs>()
+        this.Reset()
         EventMgr.Get().BindEvent(myproto.MsgId.Msg_EnterGameACK, this.OnEnterGame, this)
         EventMgr.Get().BindEvent(myproto.MsgId.Msg_ChatPUSH, this.OnChatPUSH, this)
         EventMgr.Get().BindEvent(myproto.MsgId.Msg_ItemUpdatePUSH, this.OnItemUpdate, this)
@@ -28,7 +33,9 @@ export class PlayerData {
 
     private OnEnterGame(data: Uint8Array): void {
         let ack: myproto.EnterGameACK = myproto.EnterGameACK.decode(data)
-        this.PlayerInfo = <myproto.PlayerInfo>ack.Info
+        this.PlayerInfo.Uid = ack.Info.Uid
+        this.PlayerInfo.Name = ack.Info.Name
+        this.BagInfo.SetInfo(<myproto.PlayerBagInfo>ack.Info.BagInfo)
     }
 
     private OnChatPUSH(data: Uint8Array): void {
@@ -41,6 +48,16 @@ export class PlayerData {
 
     private OnItemUpdate(data: Uint8Array): void {
         let push = myproto.ItemUpdatePUSH.decode(data)
-        console.log(push)
+        switch (push.UpdateType) {
+            case myproto.ItemUpdateType.ItemAdd:
+                this.BagInfo.addItems(<Array<myproto.Item>>push.Items)
+                break
+            case myproto.ItemUpdateType.ItemDel:
+                this.BagInfo.delItems(<Array<myproto.Item>>push.Items)
+                break
+            default:
+                return
+
+        }
     }
 }

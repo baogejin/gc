@@ -13,7 +13,7 @@ import EventMgr from "../../event/EventMgr";
 import { ResultMsg } from "../../net/ResultMsg";
 import { ServerHander } from "../../net/ServerHandler";
 import { myproto } from "../../proto/msg";
-import { PlayerData } from "../playerdata/playerdata";
+import { PlayerData } from "../playerdata/PlayerDataMgr";
 
 const { ccclass, property } = cc._decorator;
 

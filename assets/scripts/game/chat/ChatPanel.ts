@@ -15,7 +15,7 @@ import { ResUrl } from "../../common/const/Url";
 import VirtualList from "../../common/cmpt/ui/scrollList/VirtualList";
 import { ChatArgs } from "./ChatRender";
 import Layer from "../../common/cmpt/base/Layer";
-import { PlayerData } from "../playerdata/playerdata";
+import { PlayerData } from "../playerdata/PlayerDataMgr";
 
 const { ccclass, property } = cc._decorator;
 

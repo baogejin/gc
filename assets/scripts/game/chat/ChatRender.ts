@@ -6,7 +6,7 @@
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
 import VirtualItem from "../../common/cmpt/ui/scrollList/VirtualItem";
-import { PlayerData } from "../playerdata/playerdata";
+import { PlayerData } from "../playerdata/PlayerDataMgr";
 
 const { ccclass, property } = cc._decorator;
 
