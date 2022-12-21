@@ -22,7 +22,13 @@ export namespace myproto {
         Msg_ChatPUSH = 14,
         Msg_GMREQ = 15,
         Msg_GMACK = 16,
-        Msg_ItemUpdatePUSH = 17
+        Msg_ItemUpdatePUSH = 17,
+        Msg_CreateBattleREQ = 100,
+        Msg_CreateBattleACK = 101,
+        Msg_BattleInfoPUSH = 102,
+        Msg_BattleStartPUSH = 103,
+        Msg_BattleActionPUSH = 104,
+        Msg_BattleFinishPUSH = 105
     }
 
     /** ResultCode enum. */
@@ -45,7 +51,8 @@ export namespace myproto {
         PlayerNotFound = 114,
         GMCmdNotFound = 115,
         GMCmdParamErr = 116,
-        GMCmdExecErr = 117
+        GMCmdExecErr = 117,
+        CreateBattleFailed = 118
     }
 
     /** Properties of a RegisterREQ. */
@@ -1198,6 +1205,564 @@ export namespace myproto {
 
         /**
          * Gets the default type url for ItemUpdatePUSH
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a CreateBattleREQ. */
+    interface ICreateBattleREQ {
+
+        /** CreateBattleREQ LevelId */
+        LevelId?: (number|null);
+    }
+
+    /** Represents a CreateBattleREQ. */
+    class CreateBattleREQ implements ICreateBattleREQ {
+
+        /**
+         * Constructs a new CreateBattleREQ.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.ICreateBattleREQ);
+
+        /** CreateBattleREQ LevelId. */
+        public LevelId: number;
+
+        /**
+         * Creates a new CreateBattleREQ instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CreateBattleREQ instance
+         */
+        public static create(properties?: myproto.ICreateBattleREQ): myproto.CreateBattleREQ;
+
+        /**
+         * Encodes the specified CreateBattleREQ message. Does not implicitly {@link myproto.CreateBattleREQ.verify|verify} messages.
+         * @param m CreateBattleREQ message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.ICreateBattleREQ, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a CreateBattleREQ message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns CreateBattleREQ
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.CreateBattleREQ;
+
+        /**
+         * Gets the default type url for CreateBattleREQ
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a CreateBattleACK. */
+    interface ICreateBattleACK {
+
+        /** CreateBattleACK Ret */
+        Ret?: (myproto.ResultCode|null);
+    }
+
+    /** Represents a CreateBattleACK. */
+    class CreateBattleACK implements ICreateBattleACK {
+
+        /**
+         * Constructs a new CreateBattleACK.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.ICreateBattleACK);
+
+        /** CreateBattleACK Ret. */
+        public Ret: myproto.ResultCode;
+
+        /**
+         * Creates a new CreateBattleACK instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CreateBattleACK instance
+         */
+        public static create(properties?: myproto.ICreateBattleACK): myproto.CreateBattleACK;
+
+        /**
+         * Encodes the specified CreateBattleACK message. Does not implicitly {@link myproto.CreateBattleACK.verify|verify} messages.
+         * @param m CreateBattleACK message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.ICreateBattleACK, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a CreateBattleACK message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns CreateBattleACK
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.CreateBattleACK;
+
+        /**
+         * Gets the default type url for CreateBattleACK
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a BattleUint. */
+    interface IBattleUint {
+
+        /** BattleUint Id */
+        Id?: (number|null);
+
+        /** BattleUint Uid */
+        Uid?: (number|Long|null);
+
+        /** BattleUint Name */
+        Name?: (string|null);
+
+        /** BattleUint Team */
+        Team?: (number|null);
+
+        /** BattleUint Position */
+        Position?: (number|null);
+
+        /** BattleUint HP */
+        HP?: (number|Long|null);
+
+        /** BattleUint MaxHP */
+        MaxHP?: (number|Long|null);
+    }
+
+    /** Represents a BattleUint. */
+    class BattleUint implements IBattleUint {
+
+        /**
+         * Constructs a new BattleUint.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IBattleUint);
+
+        /** BattleUint Id. */
+        public Id: number;
+
+        /** BattleUint Uid. */
+        public Uid: (number|Long);
+
+        /** BattleUint Name. */
+        public Name: string;
+
+        /** BattleUint Team. */
+        public Team: number;
+
+        /** BattleUint Position. */
+        public Position: number;
+
+        /** BattleUint HP. */
+        public HP: (number|Long);
+
+        /** BattleUint MaxHP. */
+        public MaxHP: (number|Long);
+
+        /**
+         * Creates a new BattleUint instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BattleUint instance
+         */
+        public static create(properties?: myproto.IBattleUint): myproto.BattleUint;
+
+        /**
+         * Encodes the specified BattleUint message. Does not implicitly {@link myproto.BattleUint.verify|verify} messages.
+         * @param m BattleUint message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IBattleUint, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BattleUint message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns BattleUint
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.BattleUint;
+
+        /**
+         * Gets the default type url for BattleUint
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a BattleInfoPUSH. */
+    interface IBattleInfoPUSH {
+
+        /** BattleInfoPUSH BattleId */
+        BattleId?: (number|Long|null);
+
+        /** BattleInfoPUSH LevelId */
+        LevelId?: (number|null);
+
+        /** BattleInfoPUSH Units */
+        Units?: (myproto.IBattleUint[]|null);
+    }
+
+    /** Represents a BattleInfoPUSH. */
+    class BattleInfoPUSH implements IBattleInfoPUSH {
+
+        /**
+         * Constructs a new BattleInfoPUSH.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IBattleInfoPUSH);
+
+        /** BattleInfoPUSH BattleId. */
+        public BattleId: (number|Long);
+
+        /** BattleInfoPUSH LevelId. */
+        public LevelId: number;
+
+        /** BattleInfoPUSH Units. */
+        public Units: myproto.IBattleUint[];
+
+        /**
+         * Creates a new BattleInfoPUSH instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BattleInfoPUSH instance
+         */
+        public static create(properties?: myproto.IBattleInfoPUSH): myproto.BattleInfoPUSH;
+
+        /**
+         * Encodes the specified BattleInfoPUSH message. Does not implicitly {@link myproto.BattleInfoPUSH.verify|verify} messages.
+         * @param m BattleInfoPUSH message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IBattleInfoPUSH, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BattleInfoPUSH message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns BattleInfoPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.BattleInfoPUSH;
+
+        /**
+         * Gets the default type url for BattleInfoPUSH
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a BattleStartPUSH. */
+    interface IBattleStartPUSH {
+
+        /** BattleStartPUSH BattleId */
+        BattleId?: (number|Long|null);
+    }
+
+    /** Represents a BattleStartPUSH. */
+    class BattleStartPUSH implements IBattleStartPUSH {
+
+        /**
+         * Constructs a new BattleStartPUSH.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IBattleStartPUSH);
+
+        /** BattleStartPUSH BattleId. */
+        public BattleId: (number|Long);
+
+        /**
+         * Creates a new BattleStartPUSH instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BattleStartPUSH instance
+         */
+        public static create(properties?: myproto.IBattleStartPUSH): myproto.BattleStartPUSH;
+
+        /**
+         * Encodes the specified BattleStartPUSH message. Does not implicitly {@link myproto.BattleStartPUSH.verify|verify} messages.
+         * @param m BattleStartPUSH message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IBattleStartPUSH, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BattleStartPUSH message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns BattleStartPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.BattleStartPUSH;
+
+        /**
+         * Gets the default type url for BattleStartPUSH
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a BattleSkillStart. */
+    interface IBattleSkillStart {
+
+        /** BattleSkillStart Src */
+        Src?: (number|null);
+
+        /** BattleSkillStart SkillId */
+        SkillId?: (number|null);
+
+        /** BattleSkillStart Tar */
+        Tar?: (number[]|null);
+    }
+
+    /** Represents a BattleSkillStart. */
+    class BattleSkillStart implements IBattleSkillStart {
+
+        /**
+         * Constructs a new BattleSkillStart.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IBattleSkillStart);
+
+        /** BattleSkillStart Src. */
+        public Src: number;
+
+        /** BattleSkillStart SkillId. */
+        public SkillId: number;
+
+        /** BattleSkillStart Tar. */
+        public Tar: number[];
+
+        /**
+         * Creates a new BattleSkillStart instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BattleSkillStart instance
+         */
+        public static create(properties?: myproto.IBattleSkillStart): myproto.BattleSkillStart;
+
+        /**
+         * Encodes the specified BattleSkillStart message. Does not implicitly {@link myproto.BattleSkillStart.verify|verify} messages.
+         * @param m BattleSkillStart message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IBattleSkillStart, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BattleSkillStart message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns BattleSkillStart
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.BattleSkillStart;
+
+        /**
+         * Gets the default type url for BattleSkillStart
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a BattleSkillEffect. */
+    interface IBattleSkillEffect {
+
+        /** BattleSkillEffect Src */
+        Src?: (number|null);
+
+        /** BattleSkillEffect SkillId */
+        SkillId?: (number|null);
+
+        /** BattleSkillEffect Tar */
+        Tar?: (number|null);
+
+        /** BattleSkillEffect IsHeal */
+        IsHeal?: (boolean|null);
+
+        /** BattleSkillEffect Value */
+        Value?: (number|Long|null);
+    }
+
+    /** Represents a BattleSkillEffect. */
+    class BattleSkillEffect implements IBattleSkillEffect {
+
+        /**
+         * Constructs a new BattleSkillEffect.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IBattleSkillEffect);
+
+        /** BattleSkillEffect Src. */
+        public Src: number;
+
+        /** BattleSkillEffect SkillId. */
+        public SkillId: number;
+
+        /** BattleSkillEffect Tar. */
+        public Tar: number;
+
+        /** BattleSkillEffect IsHeal. */
+        public IsHeal: boolean;
+
+        /** BattleSkillEffect Value. */
+        public Value: (number|Long);
+
+        /**
+         * Creates a new BattleSkillEffect instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BattleSkillEffect instance
+         */
+        public static create(properties?: myproto.IBattleSkillEffect): myproto.BattleSkillEffect;
+
+        /**
+         * Encodes the specified BattleSkillEffect message. Does not implicitly {@link myproto.BattleSkillEffect.verify|verify} messages.
+         * @param m BattleSkillEffect message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IBattleSkillEffect, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BattleSkillEffect message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns BattleSkillEffect
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.BattleSkillEffect;
+
+        /**
+         * Gets the default type url for BattleSkillEffect
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a BattleActionPUSH. */
+    interface IBattleActionPUSH {
+
+        /** BattleActionPUSH Effects */
+        Effects?: (myproto.IBattleSkillEffect[]|null);
+
+        /** BattleActionPUSH Skills */
+        Skills?: (myproto.IBattleSkillStart[]|null);
+    }
+
+    /** Represents a BattleActionPUSH. */
+    class BattleActionPUSH implements IBattleActionPUSH {
+
+        /**
+         * Constructs a new BattleActionPUSH.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IBattleActionPUSH);
+
+        /** BattleActionPUSH Effects. */
+        public Effects: myproto.IBattleSkillEffect[];
+
+        /** BattleActionPUSH Skills. */
+        public Skills: myproto.IBattleSkillStart[];
+
+        /**
+         * Creates a new BattleActionPUSH instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BattleActionPUSH instance
+         */
+        public static create(properties?: myproto.IBattleActionPUSH): myproto.BattleActionPUSH;
+
+        /**
+         * Encodes the specified BattleActionPUSH message. Does not implicitly {@link myproto.BattleActionPUSH.verify|verify} messages.
+         * @param m BattleActionPUSH message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IBattleActionPUSH, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BattleActionPUSH message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns BattleActionPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.BattleActionPUSH;
+
+        /**
+         * Gets the default type url for BattleActionPUSH
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a BattleFinishPUSH. */
+    interface IBattleFinishPUSH {
+
+        /** BattleFinishPUSH Win */
+        Win?: (boolean|null);
+    }
+
+    /** Represents a BattleFinishPUSH. */
+    class BattleFinishPUSH implements IBattleFinishPUSH {
+
+        /**
+         * Constructs a new BattleFinishPUSH.
+         * @param [p] Properties to set
+         */
+        constructor(p?: myproto.IBattleFinishPUSH);
+
+        /** BattleFinishPUSH Win. */
+        public Win: boolean;
+
+        /**
+         * Creates a new BattleFinishPUSH instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BattleFinishPUSH instance
+         */
+        public static create(properties?: myproto.IBattleFinishPUSH): myproto.BattleFinishPUSH;
+
+        /**
+         * Encodes the specified BattleFinishPUSH message. Does not implicitly {@link myproto.BattleFinishPUSH.verify|verify} messages.
+         * @param m BattleFinishPUSH message or plain object to encode
+         * @param [w] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(m: myproto.IBattleFinishPUSH, w?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BattleFinishPUSH message from the specified reader or buffer.
+         * @param r Reader or buffer to decode from
+         * @param [l] Message length if known beforehand
+         * @returns BattleFinishPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(r: ($protobuf.Reader|Uint8Array), l?: number): myproto.BattleFinishPUSH;
+
+        /**
+         * Gets the default type url for BattleFinishPUSH
          * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
          * @returns The default type url
          */

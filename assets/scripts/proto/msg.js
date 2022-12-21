@@ -40,6 +40,12 @@ $root.myproto = (function () {
      * @property {number} Msg_GMREQ=15 Msg_GMREQ value
      * @property {number} Msg_GMACK=16 Msg_GMACK value
      * @property {number} Msg_ItemUpdatePUSH=17 Msg_ItemUpdatePUSH value
+     * @property {number} Msg_CreateBattleREQ=100 Msg_CreateBattleREQ value
+     * @property {number} Msg_CreateBattleACK=101 Msg_CreateBattleACK value
+     * @property {number} Msg_BattleInfoPUSH=102 Msg_BattleInfoPUSH value
+     * @property {number} Msg_BattleStartPUSH=103 Msg_BattleStartPUSH value
+     * @property {number} Msg_BattleActionPUSH=104 Msg_BattleActionPUSH value
+     * @property {number} Msg_BattleFinishPUSH=105 Msg_BattleFinishPUSH value
      */
     myproto.MsgId = (function () {
         var valuesById = {}, values = Object.create(valuesById);
@@ -61,6 +67,12 @@ $root.myproto = (function () {
         values[valuesById[15] = "Msg_GMREQ"] = 15;
         values[valuesById[16] = "Msg_GMACK"] = 16;
         values[valuesById[17] = "Msg_ItemUpdatePUSH"] = 17;
+        values[valuesById[100] = "Msg_CreateBattleREQ"] = 100;
+        values[valuesById[101] = "Msg_CreateBattleACK"] = 101;
+        values[valuesById[102] = "Msg_BattleInfoPUSH"] = 102;
+        values[valuesById[103] = "Msg_BattleStartPUSH"] = 103;
+        values[valuesById[104] = "Msg_BattleActionPUSH"] = 104;
+        values[valuesById[105] = "Msg_BattleFinishPUSH"] = 105;
         return values;
     })();
 
@@ -87,6 +99,7 @@ $root.myproto = (function () {
      * @property {number} GMCmdNotFound=115 GMCmdNotFound value
      * @property {number} GMCmdParamErr=116 GMCmdParamErr value
      * @property {number} GMCmdExecErr=117 GMCmdExecErr value
+     * @property {number} CreateBattleFailed=118 CreateBattleFailed value
      */
     myproto.ResultCode = (function () {
         var valuesById = {}, values = Object.create(valuesById);
@@ -109,6 +122,7 @@ $root.myproto = (function () {
         values[valuesById[115] = "GMCmdNotFound"] = 115;
         values[valuesById[116] = "GMCmdParamErr"] = 116;
         values[valuesById[117] = "GMCmdExecErr"] = 117;
+        values[valuesById[118] = "CreateBattleFailed"] = 118;
         return values;
     })();
 
@@ -2641,6 +2655,1239 @@ $root.myproto = (function () {
         };
 
         return ItemUpdatePUSH;
+    })();
+
+    myproto.CreateBattleREQ = (function () {
+
+        /**
+         * Properties of a CreateBattleREQ.
+         * @memberof myproto
+         * @interface ICreateBattleREQ
+         * @property {number|null} [LevelId] CreateBattleREQ LevelId
+         */
+
+        /**
+         * Constructs a new CreateBattleREQ.
+         * @memberof myproto
+         * @classdesc Represents a CreateBattleREQ.
+         * @implements ICreateBattleREQ
+         * @constructor
+         * @param {myproto.ICreateBattleREQ=} [p] Properties to set
+         */
+        function CreateBattleREQ(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * CreateBattleREQ LevelId.
+         * @member {number} LevelId
+         * @memberof myproto.CreateBattleREQ
+         * @instance
+         */
+        CreateBattleREQ.prototype.LevelId = 0;
+
+        /**
+         * Creates a new CreateBattleREQ instance using the specified properties.
+         * @function create
+         * @memberof myproto.CreateBattleREQ
+         * @static
+         * @param {myproto.ICreateBattleREQ=} [properties] Properties to set
+         * @returns {myproto.CreateBattleREQ} CreateBattleREQ instance
+         */
+        CreateBattleREQ.create = function create(properties) {
+            return new CreateBattleREQ(properties);
+        };
+
+        /**
+         * Encodes the specified CreateBattleREQ message. Does not implicitly {@link myproto.CreateBattleREQ.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.CreateBattleREQ
+         * @static
+         * @param {myproto.ICreateBattleREQ} m CreateBattleREQ message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CreateBattleREQ.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.LevelId != null && Object.hasOwnProperty.call(m, "LevelId"))
+                w.uint32(8).int32(m.LevelId);
+            return w;
+        };
+
+        /**
+         * Decodes a CreateBattleREQ message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.CreateBattleREQ
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.CreateBattleREQ} CreateBattleREQ
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CreateBattleREQ.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.CreateBattleREQ();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.LevelId = r.int32();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for CreateBattleREQ
+         * @function getTypeUrl
+         * @memberof myproto.CreateBattleREQ
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        CreateBattleREQ.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.CreateBattleREQ";
+        };
+
+        return CreateBattleREQ;
+    })();
+
+    myproto.CreateBattleACK = (function () {
+
+        /**
+         * Properties of a CreateBattleACK.
+         * @memberof myproto
+         * @interface ICreateBattleACK
+         * @property {myproto.ResultCode|null} [Ret] CreateBattleACK Ret
+         */
+
+        /**
+         * Constructs a new CreateBattleACK.
+         * @memberof myproto
+         * @classdesc Represents a CreateBattleACK.
+         * @implements ICreateBattleACK
+         * @constructor
+         * @param {myproto.ICreateBattleACK=} [p] Properties to set
+         */
+        function CreateBattleACK(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * CreateBattleACK Ret.
+         * @member {myproto.ResultCode} Ret
+         * @memberof myproto.CreateBattleACK
+         * @instance
+         */
+        CreateBattleACK.prototype.Ret = 0;
+
+        /**
+         * Creates a new CreateBattleACK instance using the specified properties.
+         * @function create
+         * @memberof myproto.CreateBattleACK
+         * @static
+         * @param {myproto.ICreateBattleACK=} [properties] Properties to set
+         * @returns {myproto.CreateBattleACK} CreateBattleACK instance
+         */
+        CreateBattleACK.create = function create(properties) {
+            return new CreateBattleACK(properties);
+        };
+
+        /**
+         * Encodes the specified CreateBattleACK message. Does not implicitly {@link myproto.CreateBattleACK.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.CreateBattleACK
+         * @static
+         * @param {myproto.ICreateBattleACK} m CreateBattleACK message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CreateBattleACK.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Ret != null && Object.hasOwnProperty.call(m, "Ret"))
+                w.uint32(8).int32(m.Ret);
+            return w;
+        };
+
+        /**
+         * Decodes a CreateBattleACK message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.CreateBattleACK
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.CreateBattleACK} CreateBattleACK
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CreateBattleACK.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.CreateBattleACK();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Ret = r.int32();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for CreateBattleACK
+         * @function getTypeUrl
+         * @memberof myproto.CreateBattleACK
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        CreateBattleACK.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.CreateBattleACK";
+        };
+
+        return CreateBattleACK;
+    })();
+
+    myproto.BattleUint = (function () {
+
+        /**
+         * Properties of a BattleUint.
+         * @memberof myproto
+         * @interface IBattleUint
+         * @property {number|null} [Id] BattleUint Id
+         * @property {number|Long|null} [Uid] BattleUint Uid
+         * @property {string|null} [Name] BattleUint Name
+         * @property {number|null} [Team] BattleUint Team
+         * @property {number|null} [Position] BattleUint Position
+         * @property {number|Long|null} [HP] BattleUint HP
+         * @property {number|Long|null} [MaxHP] BattleUint MaxHP
+         */
+
+        /**
+         * Constructs a new BattleUint.
+         * @memberof myproto
+         * @classdesc Represents a BattleUint.
+         * @implements IBattleUint
+         * @constructor
+         * @param {myproto.IBattleUint=} [p] Properties to set
+         */
+        function BattleUint(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * BattleUint Id.
+         * @member {number} Id
+         * @memberof myproto.BattleUint
+         * @instance
+         */
+        BattleUint.prototype.Id = 0;
+
+        /**
+         * BattleUint Uid.
+         * @member {number|Long} Uid
+         * @memberof myproto.BattleUint
+         * @instance
+         */
+        BattleUint.prototype.Uid = $util.Long ? $util.Long.fromBits(0, 0, true) : 0;
+
+        /**
+         * BattleUint Name.
+         * @member {string} Name
+         * @memberof myproto.BattleUint
+         * @instance
+         */
+        BattleUint.prototype.Name = "";
+
+        /**
+         * BattleUint Team.
+         * @member {number} Team
+         * @memberof myproto.BattleUint
+         * @instance
+         */
+        BattleUint.prototype.Team = 0;
+
+        /**
+         * BattleUint Position.
+         * @member {number} Position
+         * @memberof myproto.BattleUint
+         * @instance
+         */
+        BattleUint.prototype.Position = 0;
+
+        /**
+         * BattleUint HP.
+         * @member {number|Long} HP
+         * @memberof myproto.BattleUint
+         * @instance
+         */
+        BattleUint.prototype.HP = $util.Long ? $util.Long.fromBits(0, 0, false) : 0;
+
+        /**
+         * BattleUint MaxHP.
+         * @member {number|Long} MaxHP
+         * @memberof myproto.BattleUint
+         * @instance
+         */
+        BattleUint.prototype.MaxHP = $util.Long ? $util.Long.fromBits(0, 0, false) : 0;
+
+        /**
+         * Creates a new BattleUint instance using the specified properties.
+         * @function create
+         * @memberof myproto.BattleUint
+         * @static
+         * @param {myproto.IBattleUint=} [properties] Properties to set
+         * @returns {myproto.BattleUint} BattleUint instance
+         */
+        BattleUint.create = function create(properties) {
+            return new BattleUint(properties);
+        };
+
+        /**
+         * Encodes the specified BattleUint message. Does not implicitly {@link myproto.BattleUint.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.BattleUint
+         * @static
+         * @param {myproto.IBattleUint} m BattleUint message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BattleUint.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Id != null && Object.hasOwnProperty.call(m, "Id"))
+                w.uint32(8).int32(m.Id);
+            if (m.Uid != null && Object.hasOwnProperty.call(m, "Uid"))
+                w.uint32(16).uint64(m.Uid);
+            if (m.Name != null && Object.hasOwnProperty.call(m, "Name"))
+                w.uint32(26).string(m.Name);
+            if (m.Team != null && Object.hasOwnProperty.call(m, "Team"))
+                w.uint32(32).int32(m.Team);
+            if (m.Position != null && Object.hasOwnProperty.call(m, "Position"))
+                w.uint32(40).int32(m.Position);
+            if (m.HP != null && Object.hasOwnProperty.call(m, "HP"))
+                w.uint32(48).int64(m.HP);
+            if (m.MaxHP != null && Object.hasOwnProperty.call(m, "MaxHP"))
+                w.uint32(56).int64(m.MaxHP);
+            return w;
+        };
+
+        /**
+         * Decodes a BattleUint message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.BattleUint
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.BattleUint} BattleUint
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BattleUint.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.BattleUint();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Id = r.int32();
+                        break;
+                    }
+                    case 2: {
+                        m.Uid = r.uint64();
+                        break;
+                    }
+                    case 3: {
+                        m.Name = r.string();
+                        break;
+                    }
+                    case 4: {
+                        m.Team = r.int32();
+                        break;
+                    }
+                    case 5: {
+                        m.Position = r.int32();
+                        break;
+                    }
+                    case 6: {
+                        m.HP = r.int64();
+                        break;
+                    }
+                    case 7: {
+                        m.MaxHP = r.int64();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for BattleUint
+         * @function getTypeUrl
+         * @memberof myproto.BattleUint
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        BattleUint.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.BattleUint";
+        };
+
+        return BattleUint;
+    })();
+
+    myproto.BattleInfoPUSH = (function () {
+
+        /**
+         * Properties of a BattleInfoPUSH.
+         * @memberof myproto
+         * @interface IBattleInfoPUSH
+         * @property {number|Long|null} [BattleId] BattleInfoPUSH BattleId
+         * @property {number|null} [LevelId] BattleInfoPUSH LevelId
+         * @property {Array.<myproto.IBattleUint>|null} [Units] BattleInfoPUSH Units
+         */
+
+        /**
+         * Constructs a new BattleInfoPUSH.
+         * @memberof myproto
+         * @classdesc Represents a BattleInfoPUSH.
+         * @implements IBattleInfoPUSH
+         * @constructor
+         * @param {myproto.IBattleInfoPUSH=} [p] Properties to set
+         */
+        function BattleInfoPUSH(p) {
+            this.Units = [];
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * BattleInfoPUSH BattleId.
+         * @member {number|Long} BattleId
+         * @memberof myproto.BattleInfoPUSH
+         * @instance
+         */
+        BattleInfoPUSH.prototype.BattleId = $util.Long ? $util.Long.fromBits(0, 0, true) : 0;
+
+        /**
+         * BattleInfoPUSH LevelId.
+         * @member {number} LevelId
+         * @memberof myproto.BattleInfoPUSH
+         * @instance
+         */
+        BattleInfoPUSH.prototype.LevelId = 0;
+
+        /**
+         * BattleInfoPUSH Units.
+         * @member {Array.<myproto.IBattleUint>} Units
+         * @memberof myproto.BattleInfoPUSH
+         * @instance
+         */
+        BattleInfoPUSH.prototype.Units = $util.emptyArray;
+
+        /**
+         * Creates a new BattleInfoPUSH instance using the specified properties.
+         * @function create
+         * @memberof myproto.BattleInfoPUSH
+         * @static
+         * @param {myproto.IBattleInfoPUSH=} [properties] Properties to set
+         * @returns {myproto.BattleInfoPUSH} BattleInfoPUSH instance
+         */
+        BattleInfoPUSH.create = function create(properties) {
+            return new BattleInfoPUSH(properties);
+        };
+
+        /**
+         * Encodes the specified BattleInfoPUSH message. Does not implicitly {@link myproto.BattleInfoPUSH.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.BattleInfoPUSH
+         * @static
+         * @param {myproto.IBattleInfoPUSH} m BattleInfoPUSH message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BattleInfoPUSH.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.BattleId != null && Object.hasOwnProperty.call(m, "BattleId"))
+                w.uint32(8).uint64(m.BattleId);
+            if (m.LevelId != null && Object.hasOwnProperty.call(m, "LevelId"))
+                w.uint32(16).int32(m.LevelId);
+            if (m.Units != null && m.Units.length) {
+                for (var i = 0; i < m.Units.length; ++i)
+                    $root.myproto.BattleUint.encode(m.Units[i], w.uint32(26).fork()).ldelim();
+            }
+            return w;
+        };
+
+        /**
+         * Decodes a BattleInfoPUSH message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.BattleInfoPUSH
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.BattleInfoPUSH} BattleInfoPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BattleInfoPUSH.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.BattleInfoPUSH();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.BattleId = r.uint64();
+                        break;
+                    }
+                    case 2: {
+                        m.LevelId = r.int32();
+                        break;
+                    }
+                    case 3: {
+                        if (!(m.Units && m.Units.length))
+                            m.Units = [];
+                        m.Units.push($root.myproto.BattleUint.decode(r, r.uint32()));
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for BattleInfoPUSH
+         * @function getTypeUrl
+         * @memberof myproto.BattleInfoPUSH
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        BattleInfoPUSH.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.BattleInfoPUSH";
+        };
+
+        return BattleInfoPUSH;
+    })();
+
+    myproto.BattleStartPUSH = (function () {
+
+        /**
+         * Properties of a BattleStartPUSH.
+         * @memberof myproto
+         * @interface IBattleStartPUSH
+         * @property {number|Long|null} [BattleId] BattleStartPUSH BattleId
+         */
+
+        /**
+         * Constructs a new BattleStartPUSH.
+         * @memberof myproto
+         * @classdesc Represents a BattleStartPUSH.
+         * @implements IBattleStartPUSH
+         * @constructor
+         * @param {myproto.IBattleStartPUSH=} [p] Properties to set
+         */
+        function BattleStartPUSH(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * BattleStartPUSH BattleId.
+         * @member {number|Long} BattleId
+         * @memberof myproto.BattleStartPUSH
+         * @instance
+         */
+        BattleStartPUSH.prototype.BattleId = $util.Long ? $util.Long.fromBits(0, 0, true) : 0;
+
+        /**
+         * Creates a new BattleStartPUSH instance using the specified properties.
+         * @function create
+         * @memberof myproto.BattleStartPUSH
+         * @static
+         * @param {myproto.IBattleStartPUSH=} [properties] Properties to set
+         * @returns {myproto.BattleStartPUSH} BattleStartPUSH instance
+         */
+        BattleStartPUSH.create = function create(properties) {
+            return new BattleStartPUSH(properties);
+        };
+
+        /**
+         * Encodes the specified BattleStartPUSH message. Does not implicitly {@link myproto.BattleStartPUSH.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.BattleStartPUSH
+         * @static
+         * @param {myproto.IBattleStartPUSH} m BattleStartPUSH message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BattleStartPUSH.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.BattleId != null && Object.hasOwnProperty.call(m, "BattleId"))
+                w.uint32(8).uint64(m.BattleId);
+            return w;
+        };
+
+        /**
+         * Decodes a BattleStartPUSH message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.BattleStartPUSH
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.BattleStartPUSH} BattleStartPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BattleStartPUSH.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.BattleStartPUSH();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.BattleId = r.uint64();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for BattleStartPUSH
+         * @function getTypeUrl
+         * @memberof myproto.BattleStartPUSH
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        BattleStartPUSH.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.BattleStartPUSH";
+        };
+
+        return BattleStartPUSH;
+    })();
+
+    myproto.BattleSkillStart = (function () {
+
+        /**
+         * Properties of a BattleSkillStart.
+         * @memberof myproto
+         * @interface IBattleSkillStart
+         * @property {number|null} [Src] BattleSkillStart Src
+         * @property {number|null} [SkillId] BattleSkillStart SkillId
+         * @property {Array.<number>|null} [Tar] BattleSkillStart Tar
+         */
+
+        /**
+         * Constructs a new BattleSkillStart.
+         * @memberof myproto
+         * @classdesc Represents a BattleSkillStart.
+         * @implements IBattleSkillStart
+         * @constructor
+         * @param {myproto.IBattleSkillStart=} [p] Properties to set
+         */
+        function BattleSkillStart(p) {
+            this.Tar = [];
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * BattleSkillStart Src.
+         * @member {number} Src
+         * @memberof myproto.BattleSkillStart
+         * @instance
+         */
+        BattleSkillStart.prototype.Src = 0;
+
+        /**
+         * BattleSkillStart SkillId.
+         * @member {number} SkillId
+         * @memberof myproto.BattleSkillStart
+         * @instance
+         */
+        BattleSkillStart.prototype.SkillId = 0;
+
+        /**
+         * BattleSkillStart Tar.
+         * @member {Array.<number>} Tar
+         * @memberof myproto.BattleSkillStart
+         * @instance
+         */
+        BattleSkillStart.prototype.Tar = $util.emptyArray;
+
+        /**
+         * Creates a new BattleSkillStart instance using the specified properties.
+         * @function create
+         * @memberof myproto.BattleSkillStart
+         * @static
+         * @param {myproto.IBattleSkillStart=} [properties] Properties to set
+         * @returns {myproto.BattleSkillStart} BattleSkillStart instance
+         */
+        BattleSkillStart.create = function create(properties) {
+            return new BattleSkillStart(properties);
+        };
+
+        /**
+         * Encodes the specified BattleSkillStart message. Does not implicitly {@link myproto.BattleSkillStart.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.BattleSkillStart
+         * @static
+         * @param {myproto.IBattleSkillStart} m BattleSkillStart message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BattleSkillStart.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Src != null && Object.hasOwnProperty.call(m, "Src"))
+                w.uint32(8).int32(m.Src);
+            if (m.SkillId != null && Object.hasOwnProperty.call(m, "SkillId"))
+                w.uint32(16).int32(m.SkillId);
+            if (m.Tar != null && m.Tar.length) {
+                w.uint32(26).fork();
+                for (var i = 0; i < m.Tar.length; ++i)
+                    w.int32(m.Tar[i]);
+                w.ldelim();
+            }
+            return w;
+        };
+
+        /**
+         * Decodes a BattleSkillStart message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.BattleSkillStart
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.BattleSkillStart} BattleSkillStart
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BattleSkillStart.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.BattleSkillStart();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Src = r.int32();
+                        break;
+                    }
+                    case 2: {
+                        m.SkillId = r.int32();
+                        break;
+                    }
+                    case 3: {
+                        if (!(m.Tar && m.Tar.length))
+                            m.Tar = [];
+                        if ((t & 7) === 2) {
+                            var c2 = r.uint32() + r.pos;
+                            while (r.pos < c2)
+                                m.Tar.push(r.int32());
+                        } else
+                            m.Tar.push(r.int32());
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for BattleSkillStart
+         * @function getTypeUrl
+         * @memberof myproto.BattleSkillStart
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        BattleSkillStart.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.BattleSkillStart";
+        };
+
+        return BattleSkillStart;
+    })();
+
+    myproto.BattleSkillEffect = (function () {
+
+        /**
+         * Properties of a BattleSkillEffect.
+         * @memberof myproto
+         * @interface IBattleSkillEffect
+         * @property {number|null} [Src] BattleSkillEffect Src
+         * @property {number|null} [SkillId] BattleSkillEffect SkillId
+         * @property {number|null} [Tar] BattleSkillEffect Tar
+         * @property {boolean|null} [IsHeal] BattleSkillEffect IsHeal
+         * @property {number|Long|null} [Value] BattleSkillEffect Value
+         */
+
+        /**
+         * Constructs a new BattleSkillEffect.
+         * @memberof myproto
+         * @classdesc Represents a BattleSkillEffect.
+         * @implements IBattleSkillEffect
+         * @constructor
+         * @param {myproto.IBattleSkillEffect=} [p] Properties to set
+         */
+        function BattleSkillEffect(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * BattleSkillEffect Src.
+         * @member {number} Src
+         * @memberof myproto.BattleSkillEffect
+         * @instance
+         */
+        BattleSkillEffect.prototype.Src = 0;
+
+        /**
+         * BattleSkillEffect SkillId.
+         * @member {number} SkillId
+         * @memberof myproto.BattleSkillEffect
+         * @instance
+         */
+        BattleSkillEffect.prototype.SkillId = 0;
+
+        /**
+         * BattleSkillEffect Tar.
+         * @member {number} Tar
+         * @memberof myproto.BattleSkillEffect
+         * @instance
+         */
+        BattleSkillEffect.prototype.Tar = 0;
+
+        /**
+         * BattleSkillEffect IsHeal.
+         * @member {boolean} IsHeal
+         * @memberof myproto.BattleSkillEffect
+         * @instance
+         */
+        BattleSkillEffect.prototype.IsHeal = false;
+
+        /**
+         * BattleSkillEffect Value.
+         * @member {number|Long} Value
+         * @memberof myproto.BattleSkillEffect
+         * @instance
+         */
+        BattleSkillEffect.prototype.Value = $util.Long ? $util.Long.fromBits(0, 0, false) : 0;
+
+        /**
+         * Creates a new BattleSkillEffect instance using the specified properties.
+         * @function create
+         * @memberof myproto.BattleSkillEffect
+         * @static
+         * @param {myproto.IBattleSkillEffect=} [properties] Properties to set
+         * @returns {myproto.BattleSkillEffect} BattleSkillEffect instance
+         */
+        BattleSkillEffect.create = function create(properties) {
+            return new BattleSkillEffect(properties);
+        };
+
+        /**
+         * Encodes the specified BattleSkillEffect message. Does not implicitly {@link myproto.BattleSkillEffect.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.BattleSkillEffect
+         * @static
+         * @param {myproto.IBattleSkillEffect} m BattleSkillEffect message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BattleSkillEffect.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Src != null && Object.hasOwnProperty.call(m, "Src"))
+                w.uint32(8).int32(m.Src);
+            if (m.SkillId != null && Object.hasOwnProperty.call(m, "SkillId"))
+                w.uint32(16).int32(m.SkillId);
+            if (m.Tar != null && Object.hasOwnProperty.call(m, "Tar"))
+                w.uint32(24).int32(m.Tar);
+            if (m.IsHeal != null && Object.hasOwnProperty.call(m, "IsHeal"))
+                w.uint32(32).bool(m.IsHeal);
+            if (m.Value != null && Object.hasOwnProperty.call(m, "Value"))
+                w.uint32(40).int64(m.Value);
+            return w;
+        };
+
+        /**
+         * Decodes a BattleSkillEffect message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.BattleSkillEffect
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.BattleSkillEffect} BattleSkillEffect
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BattleSkillEffect.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.BattleSkillEffect();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Src = r.int32();
+                        break;
+                    }
+                    case 2: {
+                        m.SkillId = r.int32();
+                        break;
+                    }
+                    case 3: {
+                        m.Tar = r.int32();
+                        break;
+                    }
+                    case 4: {
+                        m.IsHeal = r.bool();
+                        break;
+                    }
+                    case 5: {
+                        m.Value = r.int64();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for BattleSkillEffect
+         * @function getTypeUrl
+         * @memberof myproto.BattleSkillEffect
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        BattleSkillEffect.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.BattleSkillEffect";
+        };
+
+        return BattleSkillEffect;
+    })();
+
+    myproto.BattleActionPUSH = (function () {
+
+        /**
+         * Properties of a BattleActionPUSH.
+         * @memberof myproto
+         * @interface IBattleActionPUSH
+         * @property {Array.<myproto.IBattleSkillEffect>|null} [Effects] BattleActionPUSH Effects
+         * @property {Array.<myproto.IBattleSkillStart>|null} [Skills] BattleActionPUSH Skills
+         */
+
+        /**
+         * Constructs a new BattleActionPUSH.
+         * @memberof myproto
+         * @classdesc Represents a BattleActionPUSH.
+         * @implements IBattleActionPUSH
+         * @constructor
+         * @param {myproto.IBattleActionPUSH=} [p] Properties to set
+         */
+        function BattleActionPUSH(p) {
+            this.Effects = [];
+            this.Skills = [];
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * BattleActionPUSH Effects.
+         * @member {Array.<myproto.IBattleSkillEffect>} Effects
+         * @memberof myproto.BattleActionPUSH
+         * @instance
+         */
+        BattleActionPUSH.prototype.Effects = $util.emptyArray;
+
+        /**
+         * BattleActionPUSH Skills.
+         * @member {Array.<myproto.IBattleSkillStart>} Skills
+         * @memberof myproto.BattleActionPUSH
+         * @instance
+         */
+        BattleActionPUSH.prototype.Skills = $util.emptyArray;
+
+        /**
+         * Creates a new BattleActionPUSH instance using the specified properties.
+         * @function create
+         * @memberof myproto.BattleActionPUSH
+         * @static
+         * @param {myproto.IBattleActionPUSH=} [properties] Properties to set
+         * @returns {myproto.BattleActionPUSH} BattleActionPUSH instance
+         */
+        BattleActionPUSH.create = function create(properties) {
+            return new BattleActionPUSH(properties);
+        };
+
+        /**
+         * Encodes the specified BattleActionPUSH message. Does not implicitly {@link myproto.BattleActionPUSH.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.BattleActionPUSH
+         * @static
+         * @param {myproto.IBattleActionPUSH} m BattleActionPUSH message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BattleActionPUSH.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Effects != null && m.Effects.length) {
+                for (var i = 0; i < m.Effects.length; ++i)
+                    $root.myproto.BattleSkillEffect.encode(m.Effects[i], w.uint32(10).fork()).ldelim();
+            }
+            if (m.Skills != null && m.Skills.length) {
+                for (var i = 0; i < m.Skills.length; ++i)
+                    $root.myproto.BattleSkillStart.encode(m.Skills[i], w.uint32(18).fork()).ldelim();
+            }
+            return w;
+        };
+
+        /**
+         * Decodes a BattleActionPUSH message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.BattleActionPUSH
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.BattleActionPUSH} BattleActionPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BattleActionPUSH.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.BattleActionPUSH();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        if (!(m.Effects && m.Effects.length))
+                            m.Effects = [];
+                        m.Effects.push($root.myproto.BattleSkillEffect.decode(r, r.uint32()));
+                        break;
+                    }
+                    case 2: {
+                        if (!(m.Skills && m.Skills.length))
+                            m.Skills = [];
+                        m.Skills.push($root.myproto.BattleSkillStart.decode(r, r.uint32()));
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for BattleActionPUSH
+         * @function getTypeUrl
+         * @memberof myproto.BattleActionPUSH
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        BattleActionPUSH.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.BattleActionPUSH";
+        };
+
+        return BattleActionPUSH;
+    })();
+
+    myproto.BattleFinishPUSH = (function () {
+
+        /**
+         * Properties of a BattleFinishPUSH.
+         * @memberof myproto
+         * @interface IBattleFinishPUSH
+         * @property {boolean|null} [Win] BattleFinishPUSH Win
+         */
+
+        /**
+         * Constructs a new BattleFinishPUSH.
+         * @memberof myproto
+         * @classdesc Represents a BattleFinishPUSH.
+         * @implements IBattleFinishPUSH
+         * @constructor
+         * @param {myproto.IBattleFinishPUSH=} [p] Properties to set
+         */
+        function BattleFinishPUSH(p) {
+            if (p)
+                for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
+                    if (p[ks[i]] != null)
+                        this[ks[i]] = p[ks[i]];
+        }
+
+        /**
+         * BattleFinishPUSH Win.
+         * @member {boolean} Win
+         * @memberof myproto.BattleFinishPUSH
+         * @instance
+         */
+        BattleFinishPUSH.prototype.Win = false;
+
+        /**
+         * Creates a new BattleFinishPUSH instance using the specified properties.
+         * @function create
+         * @memberof myproto.BattleFinishPUSH
+         * @static
+         * @param {myproto.IBattleFinishPUSH=} [properties] Properties to set
+         * @returns {myproto.BattleFinishPUSH} BattleFinishPUSH instance
+         */
+        BattleFinishPUSH.create = function create(properties) {
+            return new BattleFinishPUSH(properties);
+        };
+
+        /**
+         * Encodes the specified BattleFinishPUSH message. Does not implicitly {@link myproto.BattleFinishPUSH.verify|verify} messages.
+         * @function encode
+         * @memberof myproto.BattleFinishPUSH
+         * @static
+         * @param {myproto.IBattleFinishPUSH} m BattleFinishPUSH message or plain object to encode
+         * @param {$protobuf.Writer} [w] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BattleFinishPUSH.encode = function encode(m, w) {
+            if (!w)
+                w = $Writer.create();
+            if (m.Win != null && Object.hasOwnProperty.call(m, "Win"))
+                w.uint32(8).bool(m.Win);
+            return w;
+        };
+
+        /**
+         * Decodes a BattleFinishPUSH message from the specified reader or buffer.
+         * @function decode
+         * @memberof myproto.BattleFinishPUSH
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} r Reader or buffer to decode from
+         * @param {number} [l] Message length if known beforehand
+         * @returns {myproto.BattleFinishPUSH} BattleFinishPUSH
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BattleFinishPUSH.decode = function decode(r, l) {
+            if (!(r instanceof $Reader))
+                r = $Reader.create(r);
+            var c = l === undefined ? r.len : r.pos + l, m = new $root.myproto.BattleFinishPUSH();
+            while (r.pos < c) {
+                var t = r.uint32();
+                switch (t >>> 3) {
+                    case 1: {
+                        m.Win = r.bool();
+                        break;
+                    }
+                    default:
+                        r.skipType(t & 7);
+                        break;
+                }
+            }
+            return m;
+        };
+
+        /**
+         * Gets the default type url for BattleFinishPUSH
+         * @function getTypeUrl
+         * @memberof myproto.BattleFinishPUSH
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        BattleFinishPUSH.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/myproto.BattleFinishPUSH";
+        };
+
+        return BattleFinishPUSH;
     })();
 
     return myproto;
