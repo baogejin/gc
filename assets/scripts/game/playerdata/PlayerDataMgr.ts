@@ -1,5 +1,4 @@
 import { myproto } from "../../proto/msg";
-import { ItemConfig } from "../../data/gencode/ItemCfg";
 import EventMgr from "../../event/EventMgr";
 import { ChatArgs } from "../chat/ChatRender";
 import { PlayerInfo } from "./PlayerInfo";
@@ -17,6 +16,7 @@ export class PlayerData {
     public PlayerInfo: PlayerInfo
     public BagInfo: BagInfo
     public ChatHistory: Array<ChatArgs>
+    public BattleInfo: myproto.BattleInfoPUSH
 
 
     public Reset(): void {

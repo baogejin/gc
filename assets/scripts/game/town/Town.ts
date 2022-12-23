@@ -14,6 +14,7 @@ import { ServerHander } from "../../net/ServerHandler";
 import { myproto } from "../../proto/msg";
 import Bag from "../bag/Bag";
 import ChatPanel from "../chat/ChatPanel";
+import { PlayerData } from "../playerdata/PlayerDataMgr";
 
 const { ccclass, property } = cc._decorator;
 
@@ -75,8 +76,11 @@ export default class Town extends cc.Component {
     }
 
     private OnBattleInfo(data: Uint8Array): void {
+        console.log(data)
         let push = myproto.BattleInfoPUSH.decode(data)
         console.log(push)
+        PlayerData.Get().BattleInfo = push
+        Layer.inst.enterMain(ResUrl.PREFAB.Battle)
     }
 
     private OnBattleAction(data: Uint8Array): void {

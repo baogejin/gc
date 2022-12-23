@@ -9,6 +9,7 @@ export const ResUrl = {
         Login: "prefab/login/login",
         CreateRole: "prefab/login/createRole",
         Town: "prefab/town/town",
+        Battle: "prefab/battle/battle"
     },
 
     ATLAS: {
