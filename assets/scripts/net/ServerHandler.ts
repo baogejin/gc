@@ -70,4 +70,11 @@ export class ServerHander {
         let buf: Uint8Array = myproto.CreateBattleREQ.encode(req).finish()
         NetMgr.Get().Send(myproto.MsgId.Msg_CreateBattleREQ, buf)
     }
+
+    public BattleStartReq(battleId: number): void {
+        let req: myproto.BattleStartREQ = myproto.BattleStartREQ.create()
+        req.BattleId = battleId
+        let buf: Uint8Array = myproto.BattleStartREQ.encode(req).finish()
+        NetMgr.Get().Send(myproto.MsgId.Msg_BattleStartREQ, buf)
+    }
 }

@@ -37,10 +37,10 @@ export default class Town extends cc.Component {
         this.bagBtn.on(cc.Node.EventType.TOUCH_END, this.OnBagBtn, this)
         this.battleBtn.on(cc.Node.EventType.TOUCH_END, this.OnBattleBtn, this)
 
-        EventMgr.Get().BindEvent(myproto.MsgId.Msg_BattleStartPUSH, this.OnBattleStart, this)
+
         EventMgr.Get().BindEvent(myproto.MsgId.Msg_BattleInfoPUSH, this.OnBattleInfo, this)
-        EventMgr.Get().BindEvent(myproto.MsgId.Msg_BattleActionPUSH, this.OnBattleAction, this)
-        EventMgr.Get().BindEvent(myproto.MsgId.Msg_BattleFinishPUSH, this.OnBattleFinish, this)
+
+
     }
 
     protected onDestroy(): void {
@@ -48,10 +48,9 @@ export default class Town extends cc.Component {
         this.bagBtn.off(cc.Node.EventType.TOUCH_END, this.OnBagBtn, this)
         this.battleBtn.off(cc.Node.EventType.TOUCH_END, this.OnBattleBtn, this)
 
-        EventMgr.Get().UnbindEvent(myproto.MsgId.Msg_BattleStartPUSH, this.OnBattleStart, this)
+
         EventMgr.Get().UnbindEvent(myproto.MsgId.Msg_BattleInfoPUSH, this.OnBattleInfo, this)
-        EventMgr.Get().UnbindEvent(myproto.MsgId.Msg_BattleActionPUSH, this.OnBattleAction, this)
-        EventMgr.Get().UnbindEvent(myproto.MsgId.Msg_BattleFinishPUSH, this.OnBattleFinish, this)
+
     }
 
     // update (dt) {}
@@ -70,11 +69,6 @@ export default class Town extends cc.Component {
         ServerHander.Get().CreateBattleReq(1)
     }
 
-    private OnBattleStart(data: Uint8Array): void {
-        let push = myproto.BattleStartPUSH.decode(data)
-        console.log(push)
-    }
-
     private OnBattleInfo(data: Uint8Array): void {
         console.log(data)
         let push = myproto.BattleInfoPUSH.decode(data)
@@ -83,13 +77,4 @@ export default class Town extends cc.Component {
         Layer.inst.enterMain(ResUrl.PREFAB.Battle)
     }
 
-    private OnBattleAction(data: Uint8Array): void {
-        let push = myproto.BattleActionPUSH.decode(data)
-        console.log(push)
-    }
-
-    private OnBattleFinish(data: Uint8Array): void {
-        let push = myproto.BattleFinishPUSH.decode(data)
-        console.log(push)
-    }
 }

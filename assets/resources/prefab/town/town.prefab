@@ -1919,8 +1919,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 200,
+      "height": 80
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1931,8 +1931,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        242.332,
-        -362.321,
+        237.6,
+        -376.308,
         0,
         0,
         0,
@@ -1990,8 +1990,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 200,
+      "height": 80
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2030,7 +2030,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Label",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 50
     },
@@ -2054,7 +2054,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 200,
       "height": 40
     },
     "_anchorPoint": {
@@ -2106,9 +2106,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "创建战斗",
-    "_N$string": "创建战斗",
-    "_fontSize": 20,
+    "_string": "单挑魔王",
+    "_N$string": "单挑魔王",
+    "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": false,
     "_N$file": null,
